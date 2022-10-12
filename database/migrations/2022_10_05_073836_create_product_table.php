@@ -17,10 +17,10 @@ class CreateProductTable extends Migration
             $table->id();
             $table->foreignId('store_id')->constrained('store');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->foreignId('gallery_id')->constrained('gallery');
             $table->string('price');
-            $table->string('discount');
+            $table->string('discount')->nullable();
             $table->foreignId('product_status_id')->constrained('product_status');
             $table->timestamps();
         });
