@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('product', [ProductController::class, 'index']);
+Route::prefix('products')->name('products.')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('update/{id?}', [ProductController::class, 'update'])->name('update');
+});
+
+Route::prefix('stores')->name('stores.')->group(function () {
+    Route::get('/', [StoreController::class, 'index'])->name('index');
+    Route::get('update/{id?}', [StoreController::class, 'update'])->name('update');
+});
+
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('update/{id?}', [UserController::class, 'update'])->name('update');
+});
+
+Route::prefix('setting')->name('setting.')->group(function () {
+    Route::get('/', [StoreController::class, 'index'])->name('index');
+});

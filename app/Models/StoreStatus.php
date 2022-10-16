@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class StoreStatus extends Model
 {
     use HasFactory;
+
+    protected $table = 'store_status';
+
+    protected $fillable = ['id', 'name'];
 }

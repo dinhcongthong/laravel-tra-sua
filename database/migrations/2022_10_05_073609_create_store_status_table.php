@@ -15,6 +15,8 @@ class CreateStoreStatusTable extends Migration
     {
         Schema::create('store_status', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('color_class');
             $table->timestamps();
         });
     }

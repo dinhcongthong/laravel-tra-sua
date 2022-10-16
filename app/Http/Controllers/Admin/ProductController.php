@@ -4,32 +4,41 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Weidner\Goutte\GoutteFacade;
 
 class ProductController extends Controller
 {
-    public function __construct()
+    private $productRepositoryInterface;
+
+    public function __construct (ProductRepositoryInterface $productRepositoryInterface)
     {
+        $this->productRepositoryInterface = $productRepositoryInterface;
     }
 
     public function index()
     {
+        return view('admin.product.index');
+    }
+
+    public function update (Request $request) {
+        return $request->all();
         $crawler = GoutteFacade::request('GET', 'https://phuclong.com.vn/category/thuc-uong');
 
         $nameArr = $crawler->filter('div.item-name')->each(function ($node) {
             return $node->text();
         });
+
         $priceArr = $crawler->filter('div.item-price')->each(function ($node) {
             return $node->text();
         });
         $desArr = $crawler->filter('div.item-desc')->each(function ($node) {
             return $node->text();
         });
-        $imgArr = $crawler->filter('a.item-wrapper img')->each(function ($node) {
-            return $node->attr("src");
+        $imgArr = $crawler->filter('div.product-item')->each(function ($node) {
+            return $node->filter('a.item-wrapper img')->attr('data-original');
         });
-        dd($imgArr);
 
         $products = [];
         foreach ($nameArr as $key => $name) {
@@ -38,9 +47,6 @@ class ProductController extends Controller
             $products[$key]['description'] = $desArr[$key];
             $products[$key]['image'] = $imgArr[$key];
         }
-        return $products;
-        dd($products);
-        return 'this is test product controllersfsdfsds';
-        return view('admin.product.index');
+
     }
 }
