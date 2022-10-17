@@ -23,7 +23,7 @@ Route::prefix('products')->name('products.')->group(function () {
 
 Route::prefix('stores')->name('stores.')->group(function () {
     Route::get('/', [StoreController::class, 'index'])->name('index');
-    Route::get('update/{id?}', [StoreController::class, 'update'])->name('update');
+    Route::match(['get', 'post'], 'update/{id?}', [StoreController::class, 'update'])->name('update');
 });
 
 Route::prefix('users')->name('users.')->group(function () {

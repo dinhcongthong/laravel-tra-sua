@@ -6,6 +6,8 @@ use App\Http\Repositories\Product\ProductRepository;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepository;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
+use App\Http\Repositories\StoreStatus\StoreStatusRepository;
+use App\Http\Repositories\StoreStatus\StoreStatusRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             StoreRepositoryInterface::class,
             StoreRepository::class
+        );
+
+        $this->app->singleton(
+            StoreStatusRepositoryInterface::class,
+            StoreStatusRepository::class
         );
     }
 

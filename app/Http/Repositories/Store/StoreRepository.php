@@ -3,7 +3,6 @@
 namespace App\Http\Repositories\Store;
 
 use App\Http\Repositories\BaseRepository;
-use App\Http\Repositories\Store\StoreRepositoryInterface;
 use App\Models\Store;
 
 class StoreRepository extends BaseRepository implements StoreRepositoryInterface {

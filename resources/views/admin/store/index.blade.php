@@ -39,7 +39,7 @@
                                 <img src="{{ $item->getImage->url }}" width="80" alt="">
                             </td>
                             <td>
-                                <a href="{{ route('admin.products.update', $item->id) }}" class="btn btn-default">Edit</a>
+                                <a href="{{ route('admin.stores.update', $item->id) }}" class="btn btn-default">Edit</a>
                             </td>
                         </tr>
                         @endforeach

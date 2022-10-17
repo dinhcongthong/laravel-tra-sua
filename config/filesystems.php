@@ -70,4 +70,8 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    'destination' =>[
+        'store' => '/uploads/Store/'
+    ]
+
 ];

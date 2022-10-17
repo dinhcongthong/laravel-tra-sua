@@ -15,4 +15,11 @@ class Gallery extends Model
         'name',
         'url'
     ];
+
+    public function getUrlAttribute($value) {
+        if (is_null($this->name)) {
+            return $value;
+        }
+        return url('/') . config('filesystems.destination.store') . $this->name;
+    }
 }
