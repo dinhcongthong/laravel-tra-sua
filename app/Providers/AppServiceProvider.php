@@ -8,6 +8,7 @@ use App\Http\Repositories\Store\StoreRepository;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
 use App\Http\Repositories\StoreStatus\StoreStatusRepository;
 use App\Http\Repositories\StoreStatus\StoreStatusRepositoryInterface;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,5 +43,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
     }
 }

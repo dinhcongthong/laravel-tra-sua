@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
@@ -18,12 +19,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('create/{storeId?}', [ProductController::class, 'createFromStore'])->name('create');
     Route::get('update/{id?}', [ProductController::class, 'update'])->name('update');
 });
 
 Route::prefix('stores')->name('stores.')->group(function () {
     Route::get('/', [StoreController::class, 'index'])->name('index');
-    Route::match(['get', 'post'], 'update/{id?}', [StoreController::class, 'update'])->name('update');
+    Route::get('/update/{id?}', [StoreController::class, 'getUpdate'])->name('get_update');
+    Route::post('update/{id?}', [StoreController::class, 'postUpdate'])->name('post_update');
+    Route::delete('delete/{id}', [StoreController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('orders')->name('orders.')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('index');
+    Route::match(['get', 'post'], 'update/{id?}', [OrderController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [OrderController::class, 'delete'])->name('delete');
 });
 
 Route::prefix('users')->name('users.')->group(function () {

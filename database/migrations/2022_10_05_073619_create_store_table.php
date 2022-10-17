@@ -21,6 +21,7 @@ class CreateStoreTable extends Migration
             $table->foreignId('store_status_id')->constrained('store_status');
             $table->foreignId('gallery_id')->constrained('gallery');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

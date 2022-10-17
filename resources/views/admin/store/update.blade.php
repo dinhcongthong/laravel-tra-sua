@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="section container">
+    <section class="section container bg-white p-5">
         <div class="page-title text-center">
             <h3>Add new store</h3>
             <p class="text-subtitle text-muted">Let's add new your store here.</p>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('admin.stores.update') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.stores.post_update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="py-3">
                 <label for="">Nhập tên cửa hàng </label>
@@ -34,22 +34,40 @@
                 <select name="store_status_id" id="" class="select form-control" required>
                     <option>Vui lòng chọn một trạng thái</option>
                     @foreach ($storeStatus as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        <option value="{{ $item->id }}" {{ $item->id == optional($store)->store_status_id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="py-3">
                 <label for="">Vui lòng nhập hình ảnh cửa hàng</label>
-                <input type="file" name="store_img" class="form-control" required>
-                @if (!empty($store->getImage))
-                    <div class="col-12 py-3">
-                        <img src="{{ $store->getImage->url }}" alt="" width="100">
-                    </div>
-                @endif
+                <input type="file" name="store_img" id="store_img" class="form-control">
+                <div class="col-12 py-3">
+                    @if (!empty($store->getImage))
+                        <img src="{{ $store->getImage->url }}" id="img_preview" alt="" width="200">
+                    @else
+                        <img src="{{ asset('images/no-image.jpg') }}" alt="" id="img_preview" width="200">
+                    @endif
+                </div>
             </div>
             <div class="text-center py-3">
                 <button type="submit" class="btn btn-success">Lưu</button>
             </div>
         </form>
     </section>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            previewImage();
+        });
+
+        function previewImage() {
+            store_img.onchange = evt => {
+                const [file] = store_img.files
+                if (file) {
+                    img_preview.src = URL.createObjectURL(file)
+                }
+            }
+        }
+    </script>
 @endsection

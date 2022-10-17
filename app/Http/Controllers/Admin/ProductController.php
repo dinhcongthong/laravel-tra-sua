@@ -22,6 +22,10 @@ class ProductController extends Controller
         return view('admin.product.index');
     }
 
+    public function createFromStore (Request $request) {
+        return $request->all();
+    }
+
     public function update (Request $request) {
         return $request->all();
         $crawler = GoutteFacade::request('GET', 'https://phuclong.com.vn/category/thuc-uong');

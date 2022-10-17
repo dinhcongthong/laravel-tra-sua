@@ -2,6 +2,7 @@
 namespace App\Http\Traits;
 
 use App\Models\Gallery;
+use Illuminate\Support\Facades\File;
 
 trait ImageUpload {
 
@@ -16,5 +17,14 @@ trait ImageUpload {
             'name' => $fullFileName
         ]);
         return $gallery->id;
+    }
+
+    public function deleteOldGallery ($gallery_id, $dir) {
+        $gallery = Gallery::findOrFail($gallery_id);
+        $image = public_path($dir . $gallery->url);
+        dd($image);
+        if (is_null($gallery->name))
+            File::delete($image);
+        $gallery->delete();
     }
 }

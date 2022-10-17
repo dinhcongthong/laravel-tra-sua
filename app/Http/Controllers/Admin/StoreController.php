@@ -30,27 +30,41 @@ class StoreController extends Controller
         return view('admin.store.index', ['stores' => $data]);
     }
 
-    public function update(StoreRequest $request, $id = 0)
+    public function getUpdate($id = 0)
     {
-        $galleryId = null;
+        $storeStatus = $this->storeStatusRepository->getAll();
+        $store = $this->storeRepository->find($id);
+        return view('admin.store.update', ['store' => $store, 'storeStatus' => $storeStatus]);
+    }
+    public function postUpdate(StoreRequest $request, $id = 0)
+    {
+        $store = $this->storeRepository->find($id);
+        $data = [
+            'name' => $request->name,
+            'address' => $request->address,
+            'note' => $request->note,
+            'store_status_id' => $request->store_status_id,
+        ];
+        $galleryId = optional($store)->gallery_id;
         if ($request->hasFile('store_img')) {
             $image = $request->file('store_img');
             $galleryId = $this->gallerySaveImageDir($image, config('filesystems.destination.store'));
+            if (!is_null($store)) {
+                dd(2342);
+                $this->deleteOldGallery($store->gallery_id, config('filesystems.destination.store'));
+            }
+        } else if (!$request->hasFile('store_img') && is_null($store)) {
+            return back()->withInput()->withErrors(['errors' => 'Vui long nhap hinh anh']);
         }
-        $storeStatus = $this->storeStatusRepository->getAll();
-        $store = $this->storeRepository->find($id);
-        if (is_null($store)) {
-            $store = $this->storeRepository->initStore();
-        }
-        $store->name            = $request->name ?? $store->name;
-        $store->address         = $request->address ?? $store->address;
-        $store->note            = $request->note ?? $store->note;
-        $store->store_status_id = $request->store_status_id ?? $store->store_status_id;
-        $store->gallery_id       = $galleryId ?? $store->gallery_id;
-        if ($request->isMethod('POST')) {
-            $store->save();
-            return redirect()->route('admin.stores.index');
-        }
-        return view('admin.store.update', ['store' => $store, 'storeStatus' => $storeStatus]);
+        $data['gallery_id'] = $galleryId ?? $store->gallery_id;
+        $result = !is_null($store) ? $store->update($data) : $this->storeRepository->create($data);
+        if ($result)
+            return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi cap nhat cua hang thanh cong']);
+        return redirect()->back()->withInput()->withErrors(['errors' => 'Co loi trong qua trinh xu ly.']);
+    }
+
+    public function delete ($id) {
+        $this->storeRepository->delete($id);
+        return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi xoa thanh cong 1 cua hang!']);
     }
 }
