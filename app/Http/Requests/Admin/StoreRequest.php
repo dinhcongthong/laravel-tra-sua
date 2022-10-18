@@ -24,12 +24,15 @@ class StoreRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:50',
             'address' => 'required|string|max:255',
             'note' => 'nullable',
             'store_status_id' => 'required|exists:store_status,id',
-            'store_img' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
         ];
+        if (is_null($request->store_id)) {
+            $rules['store_img'] = 'mimes:jpeg,jpg,png,gif|required|max:10000';
+        }
+        return $rules;
     }
 }

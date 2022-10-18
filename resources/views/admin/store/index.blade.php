@@ -16,9 +16,15 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                Store list
+                Danh sách các cửa hàng
             </div>
             <div class="card-body">
+                <form action="" method="get">
+                    <div class="py-3 d-flex justify-content-end">
+                        <input type="text" name="search" value="{{ Request()->search }}"
+                            class="form-control w-25" placeholder="Tìm kiếm tên cửa hàng">
+                    </div>
+                </form>
                 <table class='table table-striped' id="table1">
                     <thead>
                         <tr>
@@ -39,23 +45,26 @@
                                 <td>{{ $item->address }}</td>
                                 <td>{{ $item->note }}</td>
                                 <td>
-                                    <span
-                                        class="badge {{ $item->getStatus->color_class }}">{{ $item->getStatus->name }}</span>
+                                    <span class="badge {{ $item->getStatus->color_class }}">
+                                        {{ $item->getStatus->name }}
+                                    </span>
                                 </td>
                                 <td>
                                     <img src="{{ $item->getImage->url }}" width="80" alt="">
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.stores.get_update', $item->id) }}"
-                                        class="btn btn-default text-dark mx-2">
-                                        Edit
+                                    <a href="{{ route('admin.stores.get_update', $item->id) }}">
+                                        <i class="fa-solid fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i>
                                     </a>
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                                        Tooltip on top
+                                      </button>
                                     <a href="{{ route('admin.stores.delete', $item->id) }}"
                                         class="btn btn-danger text-dark mx-2 store-delete" data-bs-toggle="modal"
                                         data-bs-target="#del_modal">
                                         Delete
                                     </a>
-                                    <a href="{{ route('admin.products.create', $item->id) }}"
+                                    <a href="{{ route('admin.products.create_from_store', $item->id) }}"
                                         class="btn btn-primary text-dark">
                                         Add product
                                     </a>
@@ -112,7 +121,6 @@
                 $('#btn_confirm').on('click', function(e) {
                     window.location.href = url;
                 })
-
             })
         }
     </script>

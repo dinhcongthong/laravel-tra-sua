@@ -19,14 +19,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('create/{storeId?}', [ProductController::class, 'createFromStore'])->name('create');
-    Route::get('update/{id?}', [ProductController::class, 'update'])->name('update');
+    Route::get('create/{storeId?}', [ProductController::class, 'getCreateFromStore'])->name('create_from_store');
+    Route::post('update', [ProductController::class, 'postUpdate'])->name('update');
 });
 
 Route::prefix('stores')->name('stores.')->group(function () {
     Route::get('/', [StoreController::class, 'index'])->name('index');
     Route::get('/update/{id?}', [StoreController::class, 'getUpdate'])->name('get_update');
-    Route::post('update/{id?}', [StoreController::class, 'postUpdate'])->name('post_update');
+    Route::post('update', [StoreController::class, 'postUpdate'])->name('post_update');
     Route::delete('delete/{id}', [StoreController::class, 'delete'])->name('delete');
 });
 

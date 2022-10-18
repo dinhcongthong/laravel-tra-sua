@@ -17,6 +17,7 @@
         @endif
         <form action="{{ route('admin.stores.post_update') }}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="store_id" value="{{ $store->id ?? null }}">
             <div class="py-3">
                 <label for="">Nhập tên cửa hàng </label>
                 <input type="text" name="name" class="form-control" value="{{ $store->name ?? old('name') }}" required>
@@ -34,7 +35,7 @@
                 <select name="store_status_id" id="" class="select form-control" required>
                     <option>Vui lòng chọn một trạng thái</option>
                     @foreach ($storeStatus as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == optional($store)->store_status_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                        <option value="{{ $item->id }}" {{ $item->id == optional($store)->store_status_id || $item->id == old('store_status_id') ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                 </select>
             </div>

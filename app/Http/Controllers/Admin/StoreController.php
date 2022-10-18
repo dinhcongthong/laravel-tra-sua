@@ -7,6 +7,7 @@ use App\Http\Repositories\Store\StoreRepositoryInterface;
 use App\Http\Repositories\StoreStatus\StoreStatusRepositoryInterface;
 use App\Http\Requests\Admin\StoreRequest;
 use App\Http\Traits\ImageUpload;
+use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
@@ -24,9 +25,10 @@ class StoreController extends Controller
         $this->storeStatusRepository = $storeStatusRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->storeRepository->getAll();
+        $searchData = $request->search;
+        $data = $this->storeRepository->getAllBySearchData($searchData);
         return view('admin.store.index', ['stores' => $data]);
     }
 
@@ -36,8 +38,9 @@ class StoreController extends Controller
         $store = $this->storeRepository->find($id);
         return view('admin.store.update', ['store' => $store, 'storeStatus' => $storeStatus]);
     }
-    public function postUpdate(StoreRequest $request, $id = 0)
+    public function postUpdate(StoreRequest $request)
     {
+        $id = $request->store_id ?? 0;
         $store = $this->storeRepository->find($id);
         $data = [
             'name' => $request->name,
@@ -46,21 +49,21 @@ class StoreController extends Controller
             'store_status_id' => $request->store_status_id,
         ];
         $galleryId = optional($store)->gallery_id;
+        $oldGalleryId = optional($store)->gallery_id;
         if ($request->hasFile('store_img')) {
             $image = $request->file('store_img');
             $galleryId = $this->gallerySaveImageDir($image, config('filesystems.destination.store'));
-            if (!is_null($store)) {
-                dd(2342);
-                $this->deleteOldGallery($store->gallery_id, config('filesystems.destination.store'));
-            }
-        } else if (!$request->hasFile('store_img') && is_null($store)) {
-            return back()->withInput()->withErrors(['errors' => 'Vui long nhap hinh anh']);
         }
         $data['gallery_id'] = $galleryId ?? $store->gallery_id;
-        $result = !is_null($store) ? $store->update($data) : $this->storeRepository->create($data);
-        if ($result)
-            return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi cap nhat cua hang thanh cong']);
-        return redirect()->back()->withInput()->withErrors(['errors' => 'Co loi trong qua trinh xu ly.']);
+        if (!is_null($store)) {
+            $store->update($data);
+            if ($oldGalleryId != $galleryId) {
+                $this->deleteOldGallery($oldGalleryId, config('filesystems.destination.store'));
+            }
+        } else {
+            $this->storeRepository->create($data);
+        }
+        return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi cap nhat cua hang thanh cong']);
     }
 
     public function delete ($id) {

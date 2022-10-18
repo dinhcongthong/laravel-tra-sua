@@ -19,20 +19,7 @@ class StoreRepository extends BaseRepository implements StoreRepositoryInterface
         return Store::class;
     }
 
-    /**
-     * Get 5 Stores hot in a month the last
-     * @return mixed
-     */
-    public function getStoreHost()
-    {
-        return $this->model::all();
-    }
-
-    public function getAll() {
-        return $this->model->with(['getImage', 'getStatus'])->get();
-    }
-
-    public function initStore() {
-        return new Store();
+    public function getAllBySearchData($searchData) {
+        return $this->model->with(['getImage', 'getStatus'])->where('name', 'like', '%' . $searchData . '%')->get();
     }
 }

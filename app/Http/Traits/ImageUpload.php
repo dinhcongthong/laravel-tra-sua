@@ -21,10 +21,9 @@ trait ImageUpload {
 
     public function deleteOldGallery ($gallery_id, $dir) {
         $gallery = Gallery::findOrFail($gallery_id);
-        $image = public_path($dir . $gallery->url);
-        dd($image);
-        if (is_null($gallery->name))
-            File::delete($image);
+        if (!is_null($gallery->name)) {
+            File::delete(public_path($dir . $gallery->name));
+        }
         $gallery->delete();
     }
 }
