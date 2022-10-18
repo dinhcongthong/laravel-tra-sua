@@ -30,4 +30,8 @@ class Store extends Model
     public function getStatus () {
         return $this->belongsTo('App\Models\StoreStatus', 'store_status_id', 'id');
     }
+
+    public function getProducts () {
+        return $this->hasMany('App\Models\Product', 'product_id', 'id');
+    }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StoreStatusSeeder extends Seeder
+class ProductStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,6 +28,6 @@ class StoreStatusSeeder extends Seeder
                 'updated_at' => new \DateTime(),
             ]
         ];
-        DB::table('store_status')->insert($data);
+        DB::table('product_status')->insert($data);
     }
 }

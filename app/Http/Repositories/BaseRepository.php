@@ -57,6 +57,18 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
+     * Get one
+     * @param $id
+     * @return mixed or 404 if null.
+     */
+    public function findOrFail($id)
+    {
+        $result = $this->model->findOrFail($id);
+
+        return $result;
+    }
+
+    /**
      * Create
      * @param array $attributes
      * @return mixed

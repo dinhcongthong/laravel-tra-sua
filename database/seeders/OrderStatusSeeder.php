@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StoreStatusSeeder extends Seeder
+class OrderStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,18 +16,24 @@ class StoreStatusSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Active',
+                'name' => 'Waiting for confirmation',
+                'color_class' => 'bg-warning',
+                'created_at' => new \DateTime(),
+                'updated_at' => new \DateTime(),
+            ],
+            [
+                'name' => 'Confirmed',
                 'color_class' => 'bg-success',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             ],
             [
-                'name' => 'Inactive',
-                'color_class' => 'bg-secondary',
+                'name' => 'Delivered',
+                'color_class' => 'bg-white',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             ]
         ];
-        DB::table('store_status')->insert($data);
+        DB::table('order_status')->insert($data);
     }
 }

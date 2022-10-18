@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             GallerySeeder::class,
             StoreStatusSeeder::class,
-            StoreSeeder::class
+            StoreSeeder::class,
+            ProductStatusSeeder::class,
+            OrderStatusSeeder::class
         ]);
     }
 }

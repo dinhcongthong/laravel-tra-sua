@@ -1,5 +1,6 @@
 @extends('layouts.admin')
-
+@section('stylesheet')
+@endsection
 @section('content')
     <div class="page-title">
         <h3>Stores</h3>
@@ -54,19 +55,15 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.stores.get_update', $item->id) }}">
-                                        <i class="fa-solid fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i>
+                                        <i data-feather="edit" title="Edit"></i>
                                     </a>
-                                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                                        Tooltip on top
-                                      </button>
                                     <a href="{{ route('admin.stores.delete', $item->id) }}"
-                                        class="btn btn-danger text-dark mx-2 store-delete" data-bs-toggle="modal"
+                                        class="mx-2 store-delete" data-bs-toggle="modal"
                                         data-bs-target="#del_modal">
-                                        Delete
+                                        <i class="text-danger" data-feather="trash-2" title="Delete"></i>
                                     </a>
-                                    <a href="{{ route('admin.products.create_from_store', $item->id) }}"
-                                        class="btn btn-primary text-dark">
-                                        Add product
+                                    <a href="{{ route('admin.products.create_from_store', $item->id) }}">
+                                        <i class="text-success" data-feather="cast" title="Crawl product from order websites"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -77,36 +74,6 @@
         </div>
     </section>
 
-
-    <!--Basic Modal -->
-    <div class="modal fade text-left" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="mydel_modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mydel_modal">Ban co thuc su muon xoa cua hang nay khong?</h5>
-                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Xoa cua hang nay dong nghia voi viec tat ca san pham trong cua hang nay khong hoat dong nua.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button type="button" class="btn btn-danger ml-1" id="btn_confirm" data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Accept</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('scripts')
     <script>

@@ -30,16 +30,17 @@ class ProductController extends Controller
 
     public function getCreateFromStore($storeId = 0, Request $request)
     {
+        return $request->all();
         $store = $this->storeRepository->find($storeId);
-        $product = $this->productRepository->find($productId);
-        return view('admin.product.update', ['store' => $store, 'product' => $product]);
+        // $product = $this->productRepository->find($productId);
+        // return view('admin.product.update', ['store' => $store, 'product' => $product]);
     }
 
     public function postUpdate(Request $request)
     {
         return $request->all();
         $crawler = GoutteFacade::request('GET', 'https://phuclong.com.vn/category/thuc-uong');
-        
+
 
         // $nameArr = $crawler->filter('div.item-name')->each(function ($node) {
         //     return $node->text();
@@ -62,6 +63,14 @@ class ProductController extends Controller
         //     $products[$key]['description'] = $desArr[$key];
         //     $products[$key]['image'] = $imgArr[$key];
         // }
+    }
 
+    public function crawler ($storeId, Request $request) {
+        $crawlUrl = $request->crawl_url;
+
+        $store = $this->storeRepository->getProducts($storeId);
+
+
+        return view('admin.product.crawler', ['store' => $store]);
     }
 }

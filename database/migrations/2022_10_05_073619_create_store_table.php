@@ -16,6 +16,7 @@ class CreateStoreTable extends Migration
         Schema::create('store', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('crawl_url')->nullable();
             $table->string('address');
             $table->text('note');
             $table->foreignId('store_status_id')->constrained('store_status');

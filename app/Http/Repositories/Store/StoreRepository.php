@@ -22,4 +22,12 @@ class StoreRepository extends BaseRepository implements StoreRepositoryInterface
     public function getAllBySearchData($searchData) {
         return $this->model->with(['getImage', 'getStatus'])->where('name', 'like', '%' . $searchData . '%')->get();
     }
+
+    public function getProducts($storeId)
+    {
+        $store = $this->model->with(['getProducts', function ($query) {
+            return $query->with('getImage');
+        }])->findOrFail($storeId);
+        return $store;
+    }
 }

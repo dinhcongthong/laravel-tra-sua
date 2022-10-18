@@ -11,5 +11,5 @@ class StoreStatus extends Model
 
     protected $table = 'store_status';
 
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['id', 'name', 'color_class'];
 }
