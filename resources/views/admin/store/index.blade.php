@@ -62,7 +62,7 @@
                                         data-bs-target="#del_modal">
                                         <i class="text-danger" data-feather="trash-2" title="Delete"></i>
                                     </a>
-                                    <a href="{{ route('admin.products.create_from_store', $item->id) }}">
+                                    <a href="{{ route('admin.products.get_crawler', $item->id) }}">
                                         <i class="text-success" data-feather="cast" title="Crawl product from order websites"></i>
                                     </a>
                                 </td>

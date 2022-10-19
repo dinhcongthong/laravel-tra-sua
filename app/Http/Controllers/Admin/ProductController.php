@@ -6,11 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
+use App\Http\Traits\ImageUpload;
 use Illuminate\Http\Request;
 use Weidner\Goutte\GoutteFacade;
 
 class ProductController extends Controller
 {
+    use ImageUpload;
+
+    const ACTIVE_STATUS = 1;
+    const INACTIVE_STATUS = 0;
+
     private $productRepository;
 
     private $storeRepository;
@@ -28,7 +34,7 @@ class ProductController extends Controller
         return view('admin.product.index');
     }
 
-    public function getCreateFromStore($storeId = 0, Request $request)
+    public function getUpdateFromStore($storeId = 0, Request $request)
     {
         return $request->all();
         $store = $this->storeRepository->find($storeId);
@@ -39,38 +45,43 @@ class ProductController extends Controller
     public function postUpdate(Request $request)
     {
         return $request->all();
-        $crawler = GoutteFacade::request('GET', 'https://phuclong.com.vn/category/thuc-uong');
-
-
-        // $nameArr = $crawler->filter('div.item-name')->each(function ($node) {
-        //     return $node->text();
-        // });
-
-        // $priceArr = $crawler->filter('div.item-price')->each(function ($node) {
-        //     return $node->text();
-        // });
-        // $desArr = $crawler->filter('div.item-desc')->each(function ($node) {
-        //     return $node->text();
-        // });
-        // $imgArr = $crawler->filter('div.product-item')->each(function ($node) {
-        //     return $node->filter('a.item-wrapper img')->attr('data-original');
-        // });
-
-        // $products = [];
-        // foreach ($nameArr as $key => $name) {
-        //     $products[$key]['name'] = $name;
-        //     $products[$key]['price'] = $priceArr[$key];
-        //     $products[$key]['description'] = $desArr[$key];
-        //     $products[$key]['image'] = $imgArr[$key];
-        // }
     }
 
-    public function crawler ($storeId, Request $request) {
-        $crawlUrl = $request->crawl_url;
-
+    public function getCrawler ($storeId, Request $request) {
         $store = $this->storeRepository->getProducts($storeId);
 
-
         return view('admin.product.crawler', ['store' => $store]);
+    }
+
+    public function postCrawler (Request $request) {
+        $crawlUrl = $request->crawl_url;
+        $crawler = GoutteFacade::request('GET', $crawlUrl);
+
+        $crawler->filter('div.product-item')->each(function ($node) use ($request) {
+            $imageUrl = $node->filter('a.item-wrapper img')->attr('data-original');
+            $galleryId = $this->gallerySaveImageUrl($imageUrl)->id;
+            $crawlId = null;
+            if ($node->filter('div.item-info button.add-to-cart')->count()) {
+                $crawlId = $node->filter('div.item-info button.add-to-cart')->attr('data-id');
+            }
+            $data = [
+                'name' => $node->filter('div.item-name')->text(),
+                'store_id' => $request->store_id,
+                'crawl_id' => $crawlId,
+                'price' => $node->filter('div.item-price')->text(),
+                'description' => $node->filter('div.item-desc')->text(),
+                'gallery_id' => $galleryId,
+                'product_status_id' => self::ACTIVE_STATUS
+            ];
+            $this->productRepository->create($data);
+        });
+
+        return redirect()->route('admin.products.get_crawler', $request->store_id);
+    }
+
+    public function delete ($productId) {
+        $product = $this->productRepository->findOrFail($productId);
+        $product->delete();
+        return true;
     }
 }

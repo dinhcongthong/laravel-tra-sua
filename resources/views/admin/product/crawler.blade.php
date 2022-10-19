@@ -8,6 +8,14 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
+                <form action="{{ route('admin.products.post_crawler') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="store_id" value="{{ Request()->segment(4) }}">
+                    <div class="py-3 d-flex justify-content-end">
+                        <input type="text" name="crawl_url" value="{{ $store->crawl_url ?? '' }}" class="form-control w-25"
+                            placeholder="Nhập URL cửa hàng bạn muốn lấy dữ liệu">
+                    </div>
+                </form>
                 <table class='table table-striped' id="crawler_table">
                     <thead>
                         <tr>
@@ -22,31 +30,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($store->getProducts as $product)
-                            <tr>
-                                <td>{{ $loop->index }}</td>
-                                <td>
-                                    <img src="{{ $item->getImage->url }}" width="80" alt="">
-                                </td>
-                                <td>{{ $product->crawl_id }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->description }}</td>
-                                <td>
-                                    <span class="badge {{ $product->getStatus->color_class }}">
-                                        {{ $product->getStatus->name }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.products.get_update', $item->id) }}">
-                                        <i data-feather="edit" title="Edit"></i>
-                                    </a>
-                                    <a href="{{ route('admin.products.delete', $item->id) }}" class="mx-2 product-delete"
-                                        data-bs-toggle="modal" data-bs-target="#del_modal">
-                                        <i class="text-danger" data-feather="trash-2" title="Delete"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if (!empty($store->getProducts))
+                            @foreach ($store->getProducts as $product)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>
+                                        <img src="{{ $product->getImage->url }}" width="80" alt="">
+                                    </td>
+                                    <td>{{ $product->crawl_id }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->description }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>
+                                        <span class="badge {{ $product->getStatus->color_class }}">
+                                            {{ $product->getStatus->name }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.products.get_update_from_store', $product->id) }}">
+                                            <i data-feather="edit" title="Edit"></i>
+                                        </a>
+                                        <a href="{{ route('admin.products.delete', [$product->id]) }}"
+                                            class="mx-2 product-delete" data-bs-toggle="modal" data-bs-target="#del_modal">
+                                            <i class="text-danger" data-feather="trash-2" title="Delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -68,7 +79,6 @@
                     // window.location.href = url;
                     const form = document.createElement('form');
                     form.method = 'DELETE';
-                    form.action = "{{ route('admin.products.delete')}}";
 
                     const hiddenField = document.createElement('input');
                     for (const key in params) {

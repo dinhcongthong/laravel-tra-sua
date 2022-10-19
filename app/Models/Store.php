@@ -32,6 +32,6 @@ class Store extends Model
     }
 
     public function getProducts () {
-        return $this->hasMany('App\Models\Product', 'product_id', 'id');
+        return $this->hasMany('App\Models\Product', 'store_id', 'id');
     }
 }

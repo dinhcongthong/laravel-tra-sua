@@ -52,7 +52,7 @@ class StoreController extends Controller
         $oldGalleryId = optional($store)->gallery_id;
         if ($request->hasFile('store_img')) {
             $image = $request->file('store_img');
-            $galleryId = $this->gallerySaveImageDir($image, config('filesystems.destination.store'));
+            $galleryId = $this->gallerySaveImageDir($image, config('filesystems.destination.store'))->id;
         }
         $data['gallery_id'] = $galleryId ?? $store->gallery_id;
         if (!is_null($store)) {

@@ -25,9 +25,7 @@ class StoreRepository extends BaseRepository implements StoreRepositoryInterface
 
     public function getProducts($storeId)
     {
-        $store = $this->model->with(['getProducts', function ($query) {
-            return $query->with('getImage');
-        }])->findOrFail($storeId);
+        $store = $this->model->with(['getProducts'])->find($storeId);
         return $store;
     }
 }

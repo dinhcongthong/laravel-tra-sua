@@ -16,7 +16,7 @@ trait ImageUpload {
         $gallery = Gallery::create([
             'name' => $fullFileName
         ]);
-        return $gallery->id;
+        return $gallery;
     }
 
     public function deleteOldGallery ($gallery_id, $dir) {
@@ -25,5 +25,10 @@ trait ImageUpload {
             File::delete(public_path($dir . $gallery->name));
         }
         $gallery->delete();
+    }
+
+    public function gallerySaveImageUrl ($url) {
+        $gallery = Gallery::create(['url' => $url]);
+        return $gallery;
     }
 }

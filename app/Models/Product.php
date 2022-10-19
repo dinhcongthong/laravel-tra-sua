@@ -22,10 +22,14 @@ class Product extends Model
     ];
 
     public function getStore() {
-        return $this->belongsTo('App\Models\Store', 'store_id', 'id');
+        return $this->belongsTo(Store::class, 'store_id', 'id');
+    }
+
+    public function getStatus () {
+        return $this->belongsTo(ProductStatus::class, 'product_status_id', 'id');
     }
 
     public function getImage() {
-        return $this->belongsTo('App\Models\Gallery', 'gallery_id', 'id');
+        return $this->belongsTo(Gallery::class, 'gallery_id', 'id');
     }
 }
