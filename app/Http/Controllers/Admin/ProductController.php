@@ -49,8 +49,8 @@ class ProductController extends Controller
 
     public function getCrawler ($storeId, Request $request) {
         $store = $this->storeRepository->getProducts($storeId);
-
-        return view('admin.product.crawler', ['store' => $store]);
+        $products = $this->productRepository->getByStore($storeId);
+        return view('admin.product.crawler', ['store' => $store, 'products' => $products]);
     }
 
     public function postCrawler (Request $request) {

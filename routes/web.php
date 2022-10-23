@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dd(2342);
-    return view('welcome');
+    return view('maintance');
 });
 
 // Route::prefix('admin')->group(function () {
-    
+
 // });
 
 Auth::routes();

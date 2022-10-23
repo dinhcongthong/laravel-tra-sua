@@ -1,5 +1,15 @@
 @extends('layouts.admin')
 
+@section('stylesheet')
+    <style>
+        .paginator {
+            padding-top: 1rem;
+            display: flex;
+            justify-content: center
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="page-title">
         <h3>Product Crawler</h3>
@@ -11,9 +21,10 @@
                 <form action="{{ route('admin.products.post_crawler') }}" method="post">
                     @csrf
                     <input type="hidden" name="store_id" value="{{ Request()->segment(4) }}">
-                    <div class="py-3 d-flex justify-content-end">
-                        <input type="text" name="crawl_url" value="{{ $store->crawl_url ?? '' }}" class="form-control w-25"
+                    <div class="py-3 d-flex justify-content-center">
+                        <input type="text" name="crawl_url" value="{{ $store->crawl_url ?? '' }}" class="form-control w-50"
                             placeholder="Nhập URL cửa hàng bạn muốn lấy dữ liệu">
+                        <button type="submit" class="btn btn-primary mx-3">Cap nhat</button>
                     </div>
                 </form>
                 <table class='table table-striped' id="crawler_table">
@@ -30,8 +41,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (!empty($store->getProducts))
-                            @foreach ($store->getProducts as $product)
+                        @if (!empty($products))
+                            @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>
@@ -60,6 +71,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="paginator">
+                    {{ $products->links("pagination::bootstrap-4") }}
+                </div>
             </div>
         </div>
     </section>

@@ -52,4 +52,9 @@ interface ProductRepositoryInterface
      * @return bool
      */
     public function delete($id);
+
+    /**
+     * @param $store_id
+     */
+    public function getByStore($storeId);
 }
