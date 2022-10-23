@@ -26,6 +26,12 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class='sidebar-title'>Main Menu</li>
+                        <li class="sidebar-item {{ Request()->segment(2) == 'dashboard' ? 'active' : '' }}">
+                            <a href="{{ route('admin.dashboard') }}" class='sidebar-link'>
+                                <i data-feather="home" width="20"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item {{ Request()->segment(2) == 'products' ? 'active' : '' }}">
                             <a href="{{ route('admin.products.index') }}" class='sidebar-link'>
                                 <i data-feather="layers" width="20"></i>
@@ -105,7 +111,7 @@
                                 <a class="dropdown-item active" href="#"><i data-feather="mail"></i> Messages</a>
                                 <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i data-feather="log-out"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"><i data-feather="log-out"></i> Logout</a>
                             </div>
                         </li>
                     </ul>

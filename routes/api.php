@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::prefix('products')->name('products.')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
 });

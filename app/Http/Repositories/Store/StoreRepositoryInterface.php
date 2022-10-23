@@ -11,6 +11,8 @@ interface StoreRepositoryInterface
 
     public function getAllBySearchData($searchData);
 
+    public function getAllProductsBySearchData($searchData);
+
     public function find($id);
 
     public function findOrFail($id);

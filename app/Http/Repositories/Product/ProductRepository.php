@@ -20,6 +20,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     public function getByStore ($storeId) {
-        return $this->model->whereStoreId($storeId)->paginate(10);
+        return $this->model->whereStoreId($storeId)->get();
     }
 }

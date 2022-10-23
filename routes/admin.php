@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "Admin" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/', function () {
+    return redirect()->route('admin.dashboard');
+});
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');

@@ -6,7 +6,7 @@
             <h3>Add new store</h3>
             <p class="text-subtitle text-muted">Let's add new your store here.</p>
         </div>
-        @if ($errors->any())
+        @if (isset($errors) && $errors->any())
             <div class="alert alert-light-danger color-danger my-2">
                 <ul>
                     @foreach ($errors->all() as $error)

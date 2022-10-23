@@ -7,7 +7,7 @@ use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProductController extends Controller
 {
     private $productRepository;
 
@@ -19,17 +19,5 @@ class HomeController extends Controller
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
-    }
-
-    public function index (Request $request) {
-        $storeId = $request->storeId;
-        $searchData = $request->search;
-        $productFromStore = $this->productRepository->getByStore($storeId);
-        if ($productFromStore->count() == 0) {
-            $productFromStore = $this->storeRepository->getAllProductsBySearchData($searchData);
-        }
-        return \response()->json([
-            'products' => $productFromStore,
-        ]);
     }
 }

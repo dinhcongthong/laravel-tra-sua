@@ -20,7 +20,15 @@ class StoreRepository extends BaseRepository implements StoreRepositoryInterface
     }
 
     public function getAllBySearchData($searchData) {
-        return $this->model->with(['getImage', 'getStatus'])->where('name', 'like', '%' . $searchData . '%')->get();
+        return $this->model->with(['getImage', 'getStatus'])
+            ->where('name', 'like', '%' . $searchData . '%')
+            ->get();
+    }
+
+    public function getAllProductsBySearchData($searchData) {
+        return $this->model->with(['getImage', 'getStatus', 'getProducts'])
+            ->where('name', 'like', '%' . $searchData . '%')
+            ->paginate(5);
     }
 
     public function getProducts($storeId)
