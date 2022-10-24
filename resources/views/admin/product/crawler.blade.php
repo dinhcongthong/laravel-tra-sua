@@ -22,9 +22,9 @@
                     @csrf
                     <input type="hidden" name="store_id" value="{{ Request()->segment(4) }}">
                     <div class="py-3 d-flex justify-content-center">
-                        <input type="text" name="crawl_url" value="{{ $store->crawl_url ?? '' }}" class="form-control w-50"
-                            placeholder="Nhập URL cửa hàng bạn muốn lấy dữ liệu">
-                        <button type="submit" class="btn btn-primary mx-3">Cap nhat</button>
+                        <input type="text" name="crawl_url" value="{{ $store->crawl_url ?? '' }}"
+                            class="form-control w-50" placeholder="Nhập URL cửa hàng bạn muốn lấy dữ liệu">
+                        <button type="submit" class="btn btn-primary mx-3">Cập nhật</button>
                     </div>
                 </form>
                 <table class='table table-striped' id="crawler_table">
@@ -72,7 +72,9 @@
                     </tbody>
                 </table>
                 <div class="paginator">
-                    {{ $products->links("pagination::bootstrap-4") }}
+                    @if ($products->count() > 0)
+                        {{ $products->links('pagination::bootstrap-4') }}
+                    @endif
                 </div>
             </div>
         </div>
