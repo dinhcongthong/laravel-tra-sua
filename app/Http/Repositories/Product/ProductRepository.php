@@ -22,4 +22,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getByStore ($storeId) {
         return $this->model->whereStoreId($storeId)->paginate(15);
     }
+
+    public function getAllBySearchData($searchData) {
+        return $this->model->orderBy('store_id', 'asc')
+            ->with(['getStatus', 'getImage', 'getStore'])
+            ->where('name', 'like', '%' . $searchData . '%')
+            ->paginate(15);
+    }
 }

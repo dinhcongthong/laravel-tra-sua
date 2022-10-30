@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
 use App\Http\Repositories\StoreStatus\StoreStatusRepositoryInterface;
-use App\Http\Requests\Admin\StoreRequest;
+use App\Http\Requests\StoreRequest;
 use App\Http\Traits\ImageUpload;
 use Illuminate\Http\Request;
 
@@ -29,7 +29,8 @@ class StoreController extends Controller
     {
         $searchData = $request->search;
         $data = $this->storeRepository->getAllBySearchData($searchData);
-        return view('admin.store.index', ['stores' => $data]);
+        $message = session('message') ?? '';
+        return view('admin.store.index', ['stores' => $data])->with('message', $message);
     }
 
     public function getUpdate($id = 0)
@@ -63,7 +64,7 @@ class StoreController extends Controller
         } else {
             $this->storeRepository->create($data);
         }
-        return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi cap nhat cua hang thanh cong']);
+        return redirect()->route('admin.stores.index')->with('message', 'Ban vua moi cap nhat cua hang thanh cong!');
     }
 
     public function delete ($id) {

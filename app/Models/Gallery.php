@@ -20,6 +20,6 @@ class Gallery extends Model
         if (is_null($this->name)) {
             return $value;
         }
-        return url('/') . config('filesystems.destination.store') . $this->name;
+        return url('/') . $this->name;
     }
 }

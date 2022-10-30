@@ -71,7 +71,8 @@ return [
     ],
 
     'destination' =>[
-        'store' => '/uploads/Store/'
+        'store' => '/uploads/Store/',
+        'product' => '/uploads/Product/'
     ]
 
 ];

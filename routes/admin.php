@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CrawlerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -28,11 +29,11 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 Route::prefix('products')->name('products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('update/{storeId?}', [ProductController::class, 'getUpdateFromStore'])->name('get_update_from_store');
+    Route::get('update/{storeId}/{productId?}', [ProductController::class, 'getUpdateFromStore'])->name('get_update_from_store');
     Route::post('update', [ProductController::class, 'postUpdate'])->name('post_update');
     Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
-    Route::get('crawler/{storeId?}', [ProductController::class, 'getCrawler'])->name('get_crawler');
-    Route::post('post-crawler', [ProductController::class, 'postCrawler'])->name('post_crawler');
+    Route::get('crawler/{storeId?}', [CrawlerController::class, 'getCrawler'])->name('get_crawler');
+    Route::post('post-crawler', [CrawlerController::class, 'postCrawler'])->name('post_crawler');
 });
 
 Route::prefix('stores')->name('stores.')->group(function () {

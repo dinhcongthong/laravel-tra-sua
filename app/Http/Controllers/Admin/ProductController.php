@@ -5,78 +5,79 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
+use App\Http\Repositories\ProductStatus\ProductStatusRepository;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
+use App\Http\Requests\ProductRequest;
 use App\Http\Traits\ImageUpload;
 use Illuminate\Http\Request;
-use Weidner\Goutte\GoutteFacade;
 
 class ProductController extends Controller
 {
     use ImageUpload;
 
-    const ACTIVE_STATUS = 1;
-    const INACTIVE_STATUS = 0;
-
     private $productRepository;
 
     private $storeRepository;
 
+    private $productStatusRepository;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        StoreRepositoryInterface $storeRepository
+        StoreRepositoryInterface $storeRepository,
+        ProductStatusRepository $productStatusRepository
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
+        $this->productStatusRepository = $productStatusRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.product.index');
+        $products = $this->productRepository->getAllBySearchData($request->search);
+        return view('admin.product.index', ['products' => $products]);
     }
 
-    public function getUpdateFromStore($storeId = 0, Request $request)
+    public function getUpdateFromStore($storeId, $productId = 0)
     {
-        return $request->all();
-        $store = $this->storeRepository->find($storeId);
-        // $product = $this->productRepository->find($productId);
-        // return view('admin.product.update', ['store' => $store, 'product' => $product]);
+        $store = $this->storeRepository->findOrFail($storeId);
+        $product = $this->productRepository->find($productId);
+        $productStatus = $this->productStatusRepository->getAll();
+
+        return view('admin.product.update', [
+            'product' => $product,
+            'productStatus' => $productStatus,
+            'store' => $store
+        ]);
     }
 
-    public function postUpdate(Request $request)
+    public function postUpdate(ProductRequest $request)
     {
-        return $request->all();
-    }
-
-    public function getCrawler ($storeId, Request $request) {
-        $store = $this->storeRepository->getProducts($storeId);
-        $products = $this->productRepository->getByStore($storeId);
-        return view('admin.product.crawler', ['store' => $store, 'products' => $products]);
-    }
-
-    public function postCrawler (Request $request) {
-        $crawlUrl = $request->crawl_url;
-        $crawler = GoutteFacade::request('GET', $crawlUrl);
-
-        $crawler->filter('div.product-item')->each(function ($node) use ($request) {
-            $imageUrl = $node->filter('a.item-wrapper img')->attr('data-original');
-            $galleryId = $this->gallerySaveImageUrl($imageUrl)->id;
-            $crawlId = null;
-            if ($node->filter('div.item-info button.add-to-cart')->count()) {
-                $crawlId = $node->filter('div.item-info button.add-to-cart')->attr('data-id');
+        $id = $request->product_id ?? 0;
+        $product = $this->productRepository->find($id);
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'product_status_id' => $request->product_status_id,
+            'crawl_id' => $request->crawl_id,
+            'store_id' => $request->store_id
+        ];
+        $galleryId = optional($product)->gallery_id;
+        $oldGalleryId = optional($product)->gallery_id;
+        if ($request->hasFile('product_img')) {
+            $image = $request->file('product_img');
+            $galleryId = $this->gallerySaveImageDir($image, config('filesystems.destination.product'))->id;
+        }
+        $data['gallery_id'] = $galleryId ?? $product->gallery_id;
+        if (!is_null($product)) {
+            $product->update($data);
+            if ($oldGalleryId != $galleryId) {
+                $this->deleteOldGallery($oldGalleryId, config('filesystems.destination.product'));
             }
-            $data = [
-                'name' => $node->filter('div.item-name')->text(),
-                'store_id' => $request->store_id,
-                'crawl_id' => $crawlId,
-                'price' => $node->filter('div.item-price')->text(),
-                'description' => $node->filter('div.item-desc')->text(),
-                'gallery_id' => $galleryId,
-                'product_status_id' => self::ACTIVE_STATUS
-            ];
+        } else {
             $this->productRepository->create($data);
-        });
-
-        return redirect()->route('admin.products.get_crawler', $request->store_id);
+        }
+        return redirect()->back()->with('message', 'San pham cua ban da duoc cap nhat thanh cong!');
     }
 
     public function delete ($productId) {

@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Repositories\StoreStatus;
+namespace App\Http\Repositories\ProductStatus;
 
 use App\Http\Repositories\RepositoryInterface;
 
-interface StoreStatusRepositoryInterface extends RepositoryInterface
+interface ProductStatusRepositoryInterface extends RepositoryInterface
 {
     public function getModel();
     public function initStore();

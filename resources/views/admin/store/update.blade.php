@@ -3,7 +3,7 @@
 @section('content')
     <section class="section container bg-white p-5">
         <div class="page-title text-center">
-            <h3>Add new store</h3>
+            <h3>Update store</h3>
             <p class="text-subtitle text-muted">Let's add new your store here.</p>
         </div>
         @if (isset($errors) && $errors->any())
@@ -41,12 +41,12 @@
             </div>
             <div class="py-3">
                 <label for="">Vui lòng nhập hình ảnh cửa hàng</label>
-                <input type="file" name="store_img" id="store_img" class="form-control">
+                <input type="file" name="store_img" id="store_img" class="form-control img-file">
                 <div class="col-12 py-3">
                     @if (!empty($store->getImage))
-                        <img src="{{ $store->getImage->url }}" id="img_preview" alt="" width="200">
+                        <img src="{{ $store->getImage->url }}" class="img-preview" id="img_preview" alt="" width="200">
                     @else
-                        <img src="{{ asset('images/no-image.jpg') }}" alt="" id="img_preview" width="200">
+                        <img src="{{ asset('images/no-image.jpg') }}" alt="" class="img-preview" id="img_preview" width="200">
                     @endif
                 </div>
             </div>
@@ -55,20 +55,4 @@
             </div>
         </form>
     </section>
-@endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            previewImage();
-        });
-
-        function previewImage() {
-            store_img.onchange = evt => {
-                const [file] = store_img.files
-                if (file) {
-                    img_preview.src = URL.createObjectURL(file)
-                }
-            }
-        }
-    </script>
 @endsection

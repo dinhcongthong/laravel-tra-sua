@@ -51,19 +51,15 @@
                                     <td>{{ $product->crawl_id }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->description }}</td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>{{ number_format($product->price) . ' đ' }}</td>
                                     <td>
                                         <span class="badge {{ $product->getStatus->color_class }}">
                                             {{ $product->getStatus->name }}
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.products.get_update_from_store', $product->id) }}">
+                                        <a href="{{ route('admin.products.get_update_from_store', [$store->id, $product->id]) }}">
                                             <i data-feather="edit" title="Edit"></i>
-                                        </a>
-                                        <a href="{{ route('admin.products.delete', [$product->id]) }}"
-                                            class="mx-2 product-delete" data-bs-toggle="modal" data-bs-target="#del_modal">
-                                            <i class="text-danger" data-feather="trash-2" title="Delete"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -79,38 +75,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            storeDelete();
-        });
-
-        function storeDelete() {
-            $('.product-delete').on('click', function(e) {
-                $('#del_modal').modal('show');
-                let url = $(this).attr('href');
-                $('#btn_confirm').on('click', function(e) {
-                    // window.location.href = url;
-                    const form = document.createElement('form');
-                    form.method = 'DELETE';
-
-                    const hiddenField = document.createElement('input');
-                    for (const key in params) {
-                        if (params.hasOwnProperty(key)) {
-                            hiddenField.type = 'hidden';
-                            hiddenField.name = key;
-                            hiddenField.value = params[key];
-
-                            form.appendChild(hiddenField);
-                        }
-                    }
-
-                    document.body.appendChild(form);
-                    form.submit();
-                })
-            })
-        }
-    </script>
 @endsection

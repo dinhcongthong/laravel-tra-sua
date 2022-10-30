@@ -1,5 +1,5 @@
 <?php
 
-function hello ($text) {
-    return 'Hello ' . $text;
+function priceFormat ($price) {
+    return number_format($price, 0);
 }

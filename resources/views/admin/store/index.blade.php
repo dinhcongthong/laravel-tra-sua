@@ -7,9 +7,9 @@
         <p class="text-subtitle text-muted">A good dashboard to display your store</p>
         <a href="{{ route('admin.stores.get_update') }}" class="btn btn-success mb-3 fw-bold">+ Add new</a>
         <div class="col-12 py-3">
-            @if (isset($status))
-                <div class="alert alert-light-danger color-danger my-2">
-                    <p>{{ $status }}</p>
+            @if (!empty($message))
+                <div class="alert alert-light-success color-success my-2">
+                    <p>{{ $message }}</p>
                 </div>
             @endif
         </div>
@@ -29,7 +29,7 @@
                 <table class='table table-striped' id="table1">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NO</th>
                             <th>Name</th>
                             <th>Address</th>
                             <th>Note</th>
@@ -41,7 +41,7 @@
                     <tbody>
                         @foreach ($stores as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->address }}</td>
                                 <td>{{ $item->note }}</td>
@@ -55,15 +55,13 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.stores.get_update', $item->id) }}">
-                                        <i data-feather="edit" title="Edit"></i>
-                                    </a>
-                                    <a href="{{ route('admin.stores.delete', $item->id) }}"
-                                        class="mx-2 store-delete" data-bs-toggle="modal"
-                                        data-bs-target="#del_modal">
-                                        <i class="text-danger" data-feather="trash-2" title="Delete"></i>
+                                        <i data-feather="edit" title="Edit store"></i>
                                     </a>
                                     <a href="{{ route('admin.products.get_crawler', $item->id) }}">
-                                        <i class="text-success" data-feather="cast" title="Crawl product from order websites"></i>
+                                        <i class="text-warning" data-feather="eye" title="Detail"></i>
+                                    </a>
+                                    <a href="{{ route('admin.products.get_update_from_store', $item->id) }}">
+                                        <i class="text-success" data-feather="file-plus" title="Add product from store"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -73,22 +71,4 @@
             </div>
         </div>
     </section>
-
-@endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            storeDelete();
-        });
-
-        function storeDelete() {
-            $('.store-delete').on('click', function(e) {
-                $('#del_modal').modal('show');
-                let url = $(this).attr('href');
-                $('#btn_confirm').on('click', function(e) {
-                    window.location.href = url;
-                })
-            })
-        }
-    </script>
 @endsection

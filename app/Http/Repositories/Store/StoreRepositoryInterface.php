@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Repositories\Store;
 
-interface StoreRepositoryInterface
+use App\Http\Repositories\RepositoryInterface;
+
+interface StoreRepositoryInterface extends RepositoryInterface
 {
     /**
      * Get 5 posts hot in a month the last
@@ -12,16 +14,6 @@ interface StoreRepositoryInterface
     public function getAllBySearchData($searchData);
 
     public function getAllProductsBySearchData($searchData);
-
-    public function find($id);
-
-    public function findOrFail($id);
-
-    public function create(array $attributes);
-
-    public function update($id, array $attributes);
-
-    public function delete($id);
 
     public function getProducts($storeId);
 }
