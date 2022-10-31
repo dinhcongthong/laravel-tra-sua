@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             StoreStatusSeeder::class,
             StoreSeeder::class,
             ProductStatusSeeder::class,
-            OrderStatusSeeder::class
+            OrderStatusSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
     }
 }

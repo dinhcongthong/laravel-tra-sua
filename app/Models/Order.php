@@ -13,12 +13,16 @@ class Order extends Model
 
     protected $fillable = [
         'order_status_id',
+        'payment_method_id',
         'total_payment',
-        'cus_name',
-        'cus_phone',
-        'product_name',
+        'customer_name',
+        'customer_phone',
         'client_ip',
         'note',
         'order_date',
     ];
+
+    public function getOrderItems () {
+        return $this->hasMany('App\Models\OrderItem', 'order_id', 'id');
+    }
 }

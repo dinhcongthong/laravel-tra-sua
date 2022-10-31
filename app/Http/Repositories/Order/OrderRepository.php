@@ -20,6 +20,6 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     }
 
     public function getHistoryByIds ($orderIds) {
-        return $this->model->whereIn('id', $orderIds)->paginate(15);
+        return $this->model->whereIn('id', $orderIds)->with('getOrderItems')->paginate(15);
     }
 }

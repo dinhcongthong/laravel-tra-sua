@@ -16,12 +16,12 @@ class CreateOrderTable extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_status_id')->constrained('order_status');
+            $table->foreignId('payment_method_id')->constrained('payment_methods');
             $table->string('total_payment');
-            $table->string('cus_name');
-            $table->string('cus_phone');
-            $table->string('product_name');
+            $table->string('customer_name');
+            $table->string('customer_phone');
             $table->string('client_ip');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->date('order_date');
             $table->timestamps();
         });

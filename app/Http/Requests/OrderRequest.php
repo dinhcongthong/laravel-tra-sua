@@ -24,12 +24,12 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'total_payment' => 'required|numeric',
-            'cus_name' => 'required|string|max:50',
-            'cus_phone' => 'required|string|max:15',
-            'product_name' => 'required|string|max:100',
+            // order.
+            'total_payment' => 'required|numeric|min:0',
+            'customer_name' => 'required|string|max:50',
+            'customer_phone' => 'required|string|max:15',
             'client_ip' => 'nullable|string|max:17',
-            'note' => 'nullable|string|max:1000',
+            'order_note' => 'nullable|string|max:1000',
         ];
     }
 }

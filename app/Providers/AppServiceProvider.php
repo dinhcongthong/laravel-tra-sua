@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Http\Repositories\Order\OrderRepository;
 use App\Http\Repositories\Order\OrderRepositoryInterface;
+use App\Http\Repositories\OrderItem\OrderItemRepository;
+use App\Http\Repositories\OrderItem\OrderItemRepositoryInterface;
 use App\Http\Repositories\Product\ProductRepository;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepository;
@@ -40,6 +42,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             OrderRepositoryInterface::class,
             OrderRepository::class
+        );
+
+        $this->app->singleton(
+            OrderItemRepositoryInterface::class,
+            OrderItemRepository::class
         );
     }
 
