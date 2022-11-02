@@ -20,7 +20,7 @@
                 <form action="" method="get">
                     <div class="py-3 d-flex justify-content-end">
                         <input type="text" name="search" value="{{ Request()->search }}"
-                            class="form-control w-25" placeholder="Tìm kiếm tên cửa hàng">
+                            class="form-control w-25" placeholder="Tìm kiếm tên sản phẩm">
                     </div>
                 </form>
                 <table class='table table-striped' id="crawler_table">

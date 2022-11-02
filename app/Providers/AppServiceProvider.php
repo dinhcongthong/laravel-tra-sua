@@ -6,6 +6,8 @@ use App\Http\Repositories\Order\OrderRepository;
 use App\Http\Repositories\Order\OrderRepositoryInterface;
 use App\Http\Repositories\OrderItem\OrderItemRepository;
 use App\Http\Repositories\OrderItem\OrderItemRepositoryInterface;
+use App\Http\Repositories\OrderStatus\OrderStatusRepository;
+use App\Http\Repositories\OrderStatus\OrderStatusRepositoryInterface;
 use App\Http\Repositories\Product\ProductRepository;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepository;
@@ -47,6 +49,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             OrderItemRepositoryInterface::class,
             OrderItemRepository::class
+        );
+
+        $this->app->singleton(
+            OrderStatusRepositoryInterface::class,
+            OrderStatusRepository::class
         );
     }
 

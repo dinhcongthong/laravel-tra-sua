@@ -46,14 +46,14 @@ class OrderController extends Controller
      *               "price": 50000,
      *               "product_name": "Tra sua chan trau",
      *               "product_img_url": "https://abc.xyz",
-     *               "order_item_note": "ko co gi"
+     *               "order_item_note": "size S nha"
      *           },
      *           {
      *               "qty": 1,
      *               "price": 50000,
      *               "product_name": "Sua chua",
      *               "product_img_url": "https://abc.xyz",
-     *               "order_item_note": "ko co gi"
+     *               "order_item_note": "size M"
      *           }
      *       ]
      *   }
@@ -85,15 +85,14 @@ class OrderController extends Controller
                 ];
                 $orderItem = $this->orderItemRepository->create($orderItemData);
             }
-
-            return response()->json([
-                'orderId' => $order->id,
-                'message' => 'success'
-            ]);
+            return sendResponse(
+                [
+                    'orderId' => $order->id,
+                ],
+                'Thành công'
+            );
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            return sendError($e->getMessage(), 500);
         }
     }
 }

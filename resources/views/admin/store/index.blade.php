@@ -7,9 +7,9 @@
         <p class="text-subtitle text-muted">A good dashboard to display your store</p>
         <a href="{{ route('admin.stores.get_update') }}" class="btn btn-success mb-3 fw-bold">+ Add new</a>
         <div class="col-12 py-3">
-            @if (!empty($message))
+            @if (Session::has('message'))
                 <div class="alert alert-light-success color-success my-2">
-                    <p>{{ $message }}</p>
+                    <p>{{ Session::get('message') }}</p>
                 </div>
             @endif
         </div>

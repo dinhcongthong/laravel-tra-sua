@@ -47,6 +47,7 @@ Route::prefix('orders')->name('orders.')->group(function () {
     Route::get('/', [OrderController::class, 'index'])->name('index');
     Route::match(['get', 'post'], 'update/{id?}', [OrderController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [OrderController::class, 'delete'])->name('delete');
+    Route::get('update-status', [OrderController::class, 'updateStatus'])->name('update_status');
 });
 
 Route::prefix('users')->name('users.')->group(function () {
@@ -54,6 +55,6 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::get('update/{id?}', [UserController::class, 'update'])->name('update');
 });
 
-Route::prefix('setting')->name('setting.')->group(function () {
+Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('/', [StoreController::class, 'index'])->name('index');
 });

@@ -21,15 +21,19 @@ class HomeController extends Controller
         $this->storeRepository = $storeRepository;
     }
 
-    public function index (Request $request) {
+    public function index(Request $request)
+    {
         $storeId = $request->storeId;
         $searchData = $request->search;
         $productFromStore = $this->productRepository->getByStore($storeId);
         if ($productFromStore->count() == 0) {
             $productFromStore = $this->storeRepository->getAllProductsBySearchData($searchData);
         }
-        return \response()->json([
-            'products' => $productFromStore,
-        ]);
+        return sendResponse(
+            [
+                'products' => $productFromStore
+            ],
+            'Thanh Cong'
+        );
     }
 }

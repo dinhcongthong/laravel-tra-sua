@@ -29,8 +29,7 @@ class StoreController extends Controller
     {
         $searchData = $request->search;
         $data = $this->storeRepository->getAllBySearchData($searchData);
-        $message = session('message') ?? '';
-        return view('admin.store.index', ['stores' => $data])->with('message', $message);
+        return view('admin.store.index', ['stores' => $data]);
     }
 
     public function getUpdate($id = 0)
