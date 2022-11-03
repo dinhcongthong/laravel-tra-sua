@@ -26,4 +26,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function getAll() {
         return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])->get();
     }
+
+    public function getDetail ($orderId) {
+        return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])->whereId($orderId)->firstOrFail();
+    }
 }

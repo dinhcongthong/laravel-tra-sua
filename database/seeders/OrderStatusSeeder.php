@@ -16,19 +16,19 @@ class OrderStatusSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Waiting for confirmation',
+                'name' => 'Chờ xác nhận',
                 'color_class' => 'bg-warning',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             ],
             [
-                'name' => 'Confirmed',
+                'name' => 'Đã xác nhận',
                 'color_class' => 'bg-success',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             ],
             [
-                'name' => 'Delivered',
+                'name' => 'Đã giao',
                 'color_class' => 'bg-white',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),

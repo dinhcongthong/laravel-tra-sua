@@ -53,6 +53,11 @@ class OrderController extends Controller
         }
     }
 
+    public function getDetail (Request $request) {
+        $order = $this->orderRepository->getDetail($request->orderId);
+        return sendResponse($order, 'Thành công');
+    }
+
     public function delete($id)
     {
         return $id;

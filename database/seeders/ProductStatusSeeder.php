@@ -16,13 +16,13 @@ class ProductStatusSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Active',
+                'name' => 'Hoạt động',
                 'color_class' => 'bg-success',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             ],
             [
-                'name' => 'Inactive',
+                'name' => 'Không hoạt động',
                 'color_class' => 'bg-secondary',
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),

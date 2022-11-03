@@ -9,4 +9,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
 
     public function getHistoryByIds($orderIds);
 
+    public function getDetail($orderId);
+
 }

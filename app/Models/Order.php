@@ -20,6 +20,7 @@ class Order extends Model
         'client_ip',
         'note',
         'order_date',
+        'updated_at'
     ];
 
     public function getOrderItems () {
@@ -32,5 +33,9 @@ class Order extends Model
 
     public function getStatus () {
         return $this->belongsTo('App\Models\OrderStatus', 'order_status_id', 'id');
+    }
+
+    public function getUpdatedAtAttribute ($value) {
+        return date('Y-m-d H:i:s', strtotime($value));
     }
 }
