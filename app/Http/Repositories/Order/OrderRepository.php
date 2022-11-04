@@ -30,4 +30,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function getDetail ($orderId) {
         return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])->whereId($orderId)->firstOrFail();
     }
+
+    public function getAllBySearchData ($searchData) {
+        return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])
+            ->where('total_payment', 'like', '%' . $searchData . '%')
+            ->orWhere('customer_name', 'like', '%' . $searchData . '%')
+            ->orWhere('customer_phone', 'like', '%' . $searchData . '%')
+            ->orWhere('order_date', 'like', '%' . $searchData . '%')
+            ->paginate(20);
+    }
 }

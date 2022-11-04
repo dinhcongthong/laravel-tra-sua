@@ -28,8 +28,9 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orders = $this->orderRepository->getAll();
-        $orderStatuses = $this->orderStatusRepository->getAll();
+        $searchData = $request->search ?? '';
+        $orders = $this->orderRepository->getAllBySearchData($searchData);
+        $orderStatuses = $this->orderStatusRepository->getAll($searchData);
 
         return view('admin.order.index', [
             'orders' => $orders,

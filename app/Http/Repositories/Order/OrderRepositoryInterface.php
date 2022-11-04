@@ -11,4 +11,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
 
     public function getDetail($orderId);
 
+    public function getAllBySearchData($searchData);
+
 }

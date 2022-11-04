@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('stylesheet')
     <style>
-        .order-detail:hover {
+        #order_table tr:hover {
             cursor: pointer;
             transform: scale(1.03)
         }
@@ -10,6 +10,11 @@
         }
         .modal-dialog {
             max-width: 1000px !important;
+        }
+        .paginator {
+            padding-top: 1rem;
+            display: flex;
+            justify-content: center
         }
     </style>
 @endsection
@@ -44,11 +49,12 @@
                             <th>Note</th>
                             <th>Ngày đặt</th>
                             <th>Đã cập nhật</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($orders as $order)
-                            <tr class="order-detail" data-id="{{ $order->id }}">
+                            <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $order->customer_name }}</td>
                                 <td>{{ number_format($order->total_payment) . ' đ' }}</td>
@@ -67,10 +73,18 @@
                                 <td>{{ $order->note }}</td>
                                 <td>{{ $order->order_date }}</td>
                                 <td>{{ $order->updated_at }}</td>
+                                <td class="order-detail p-0" data-id="{{ $order->id }}">
+                                    <i class="text-success" data-feather="eye" title="Detail"></i>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="paginator">
+                    @if ($orders->count() > 0)
+                        {{ $orders->links('pagination::bootstrap-4') }}
+                    @endif
+                </div>
             </div>
         </div>
         {{-- Modal --}}
@@ -151,8 +165,10 @@
                     })
                     .done(function(res) {
                         if (!res.success) {
-                            toastr.error('Lỗi cmnr!')
+                            toastr.error('Lỗi cmnr!');
+                            return;
                         }
+                        toastr.success(res.message)
                     })
                     .fail(function(xhr, status, errors) {
                         console.log(xhr)
@@ -202,7 +218,6 @@
                                 </thead>
                                 <tbody>`;
                     res.data.get_order_items.forEach((item) => {
-                        console.log(item)
                         html += `<tr>
                                     <td>
                                         <img src="${item.product_img_url}" alt="" width="100">
