@@ -68,11 +68,20 @@
                                 <span>Đơn hàng</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Request()->segment(2) == 'settings' ? 'active' : '' }}">
-                            <a href="{{ route('admin.settings.index') }}" class='sidebar-link'>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class='sidebar-link'>
                                 <i data-feather="settings" width="20"></i>
                                 <span>Cài đặt</span>
                             </a>
+                            <ul class="submenu p-0">
+                                {{-- sub-active class if exist --}}
+                                <li class="">
+                                    <a href="#" class="">Cài đặt phương thức thanh toán</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="">Cài đặt hệ thống</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
