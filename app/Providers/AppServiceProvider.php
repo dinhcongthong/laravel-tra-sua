@@ -10,6 +10,10 @@ use App\Http\Repositories\OrderStatus\OrderStatusRepository;
 use App\Http\Repositories\OrderStatus\OrderStatusRepositoryInterface;
 use App\Http\Repositories\Product\ProductRepository;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
+use App\Http\Repositories\Setting\PaymentMethod\PaymentMethodRepository;
+use App\Http\Repositories\Setting\PaymentMethod\PaymentMethodRepositoryInterface;
+use App\Http\Repositories\Setting\System\SystemRepository;
+use App\Http\Repositories\Setting\System\SystemRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepository;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
 use App\Http\Repositories\StoreStatus\StoreStatusRepository;
@@ -54,6 +58,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             OrderStatusRepositoryInterface::class,
             OrderStatusRepository::class
+        );
+
+        $this->app->singleton(
+            PaymentMethodRepositoryInterface::class,
+            PaymentMethodRepository::class
+        );
+
+        $this->app->singleton(
+            SystemRepositoryInterface::class,
+            SystemRepository::class
         );
     }
 

@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\CrawlerController;
+use App\Http\Controllers\Admin\Product\CrawlerController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\StoreController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\Order\OrderController;
+use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\Setting\PaymentMethodController;
+use App\Http\Controllers\Admin\Setting\SystemController;
+use App\Http\Controllers\Admin\Store\StoreController;
+use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,5 +59,14 @@ Route::prefix('users')->name('users.')->group(function () {
 });
 
 Route::prefix('settings')->name('settings.')->group(function () {
-    Route::get('/', [StoreController::class, 'index'])->name('index');
+    Route::prefix('payment-method')->name('payment.')->group(function () {
+        Route::get('/', [PaymentMethodController::class, 'index'])->name('index');
+        Route::get('/update/{id?}', [PaymentMethodController::class, 'getUpdate'])->name('get_update');
+        Route::post('/update', [PaymentMethodController::class, 'postUpdate'])->name('post_update');
+    });
+    Route::prefix('system')->name('system.')->group(function () {
+        Route::get('/', [SystemController::class, 'index'])->name('index');
+        Route::get('/update/{id?}', [SystemController::class, 'getUpdate'])->name('get_update');
+        Route::post('/update', [SystemController::class, 'postUpdate'])->name('post_update');
+    });
 });

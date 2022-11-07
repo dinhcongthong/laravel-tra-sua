@@ -3,9 +3,8 @@
 @endsection
 @section('content')
     <div class="page-title">
-        <h3>Stores</h3>
-        <p class="text-subtitle text-muted">A good dashboard to display your store</p>
-        <a href="{{ route('admin.stores.get_update') }}" class="btn btn-success mb-3 fw-bold">+ Add new</a>
+        <h3>Cài đặt phương thức thanh toán</h3>
+        <p class="text-subtitle text-muted">Cài đặt phương thức thanh toán của bạn ở đây</p>
         <div class="col-12 py-3">
             @if (Session::has('message'))
                 <div class="alert alert-light-success color-success my-2">
@@ -17,7 +16,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                Danh sách các cửa hàng
+                Danh sách các phương thức thanh toán
             </div>
             <div class="card-body">
                 <form action="" method="get">

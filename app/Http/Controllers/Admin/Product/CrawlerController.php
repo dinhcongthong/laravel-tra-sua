@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
@@ -22,7 +22,7 @@ class CrawlerController extends Controller
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        StoreRepositoryInterface $storeRepository,
+        StoreRepositoryInterface $storeRepository
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
