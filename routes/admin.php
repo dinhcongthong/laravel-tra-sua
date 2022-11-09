@@ -65,8 +65,6 @@ Route::prefix('settings')->name('settings.')->group(function () {
         Route::post('/update', [PaymentMethodController::class, 'postUpdate'])->name('post_update');
     });
     Route::prefix('system')->name('system.')->group(function () {
-        Route::get('/', [SystemController::class, 'index'])->name('index');
-        Route::get('/update/{id?}', [SystemController::class, 'getUpdate'])->name('get_update');
-        Route::post('/update', [SystemController::class, 'postUpdate'])->name('post_update');
+        Route::match(['get', 'post'], '/', [SystemController::class, 'index'])->name('index');
     });
 });

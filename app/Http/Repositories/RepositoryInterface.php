@@ -19,6 +19,8 @@ interface RepositoryInterface
 
     public function findOrFail($id);
 
+    public function first();
+
     /**
      * Create
      * @param array $attributes

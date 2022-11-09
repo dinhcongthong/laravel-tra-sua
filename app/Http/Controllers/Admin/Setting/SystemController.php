@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class SystemController extends Controller
 {
-    const STATUS_LIST = [
-        'active' => 'Mở',
-        'inactive' => 'Đóng'
-    ];
-
     private $systemRepository;
 
     public function __construct(SystemRepositoryInterface $systemRepository)
@@ -20,8 +15,18 @@ class SystemController extends Controller
         $this->systemRepository = $systemRepository;
     }
 
-    public function index () {
-        return view('admin.setting.system.index');
+    public function index (Request $request) {
+        $data = $request->except('_token');
+        $system = $this->systemRepository->first();
+        if ($request->isMethod('POST')) {
+            $data['status'] = $request->status ?? 0;
+            $this->systemRepository->update($system->id, $data);
+            return redirect()->back();
+        }
+
+        return view('admin.setting.system.index', [
+            'system' => $system
+        ]);
     }
 
     public function getUpdate($id = 0) {

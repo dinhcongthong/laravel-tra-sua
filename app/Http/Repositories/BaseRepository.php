@@ -68,6 +68,10 @@ abstract class BaseRepository implements RepositoryInterface
         return $result;
     }
 
+    public function first() {
+        return $this->model->first();
+    }
+
     /**
      * Create
      * @param array $attributes
@@ -113,5 +117,4 @@ abstract class BaseRepository implements RepositoryInterface
 
         return false;
     }
-
 }
