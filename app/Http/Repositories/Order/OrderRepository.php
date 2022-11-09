@@ -20,7 +20,12 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     }
 
     public function getHistoryByIds ($orderIds) {
-        return $this->model->whereIn('id', $orderIds)->with('getOrderItems')->paginate(15);
+        return $this->model->whereIn('id', $orderIds)
+        ->with(['getOrderItems'])
+        ->with(['getPaymentMethod' => function ($q) {
+            $q->with('getImage');
+        }])
+        ->paginate(15);
     }
 
     public function getAll() {

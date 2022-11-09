@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SystemController extends Controller
 {
+    const STATUS_LIST = [
+        'active' => 'Mở',
+        'inactive' => 'Đóng'
+    ];
+
     private $systemRepository;
 
     public function __construct(SystemRepositoryInterface $systemRepository)
@@ -16,7 +21,7 @@ class SystemController extends Controller
     }
 
     public function index () {
-        return 'day la system setting';
+        return view('admin.setting.system.index');
     }
 
     public function getUpdate($id = 0) {

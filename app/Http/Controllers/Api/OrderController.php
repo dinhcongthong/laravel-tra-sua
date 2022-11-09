@@ -26,7 +26,6 @@ class OrderController extends Controller
 
     public function getHistoryByIds(Request $request)
     {
-        return $request->all();
         $orderIds = $request->order_ids;
         $orders = $this->orderRepository->getHistoryByIds($orderIds);
 

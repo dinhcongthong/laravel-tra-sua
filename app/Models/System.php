@@ -12,6 +12,7 @@ class System extends Model
     protected $table = 'system';
 
     protected $fillable = [
+        'system_name',
         'time_start_open',
         'time_end_open',
         'status'
