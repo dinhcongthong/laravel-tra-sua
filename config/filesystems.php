@@ -72,7 +72,8 @@ return [
 
     'destination' =>[
         'store' => '/uploads/Store/',
-        'product' => '/uploads/Product/'
+        'product' => '/uploads/Product/',
+        'payment_method' => '/uploads/PaymentMethod/',
     ]
 
 ];

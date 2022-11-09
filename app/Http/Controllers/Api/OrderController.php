@@ -26,6 +26,7 @@ class OrderController extends Controller
 
     public function getHistoryByIds(Request $request)
     {
+        return $request->all();
         $orderIds = $request->order_ids;
         $orders = $this->orderRepository->getHistoryByIds($orderIds);
 
@@ -40,6 +41,7 @@ class OrderController extends Controller
      *       "customer_phone": "0923492349",
      *       "client_ip": "192.168.1.1",
      *       "order_note": "ko co gi",
+     *       "payment_method_id": 1,
      *       "order_items" : [
      *           {
      *               "qty": 1,
@@ -63,7 +65,7 @@ class OrderController extends Controller
         try {
             $orderData = [
                 'order_status_id' => self::ACTIVE_STATUS,
-                'payment_method_id' => 1,
+                'payment_method_id' => $request->payment_method_id,
                 'total_payment' => $request->total_payment,
                 'customer_name' => $request->customer_name,
                 'customer_phone' => $request->customer_phone,

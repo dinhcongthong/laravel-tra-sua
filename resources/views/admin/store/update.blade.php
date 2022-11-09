@@ -6,15 +6,7 @@
             <h3>Update store</h3>
             <p class="text-subtitle text-muted">Let's add new your store here.</p>
         </div>
-        @if (isset($errors) && $errors->any())
-            <div class="alert alert-light-danger color-danger my-2">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.notifications.admin_message')
         <form action="{{ route('admin.stores.post_update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="store_id" value="{{ $store->id ?? null }}">

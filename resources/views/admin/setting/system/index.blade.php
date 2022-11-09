@@ -1,16 +1,10 @@
 @extends('layouts.admin')
-@section('stylesheet')
-@endsection
 @section('content')
     <div class="page-title">
         <h3>Cài đặt hệ thống</h3>
         <p class="text-subtitle text-muted">Cài đặt hệ thống của bạn ở đây</p>
         <div class="col-12 py-3">
-            @if (Session::has('message'))
-                <div class="alert alert-light-success color-success my-2">
-                    <p>{{ Session::get('message') }}</p>
-                </div>
-            @endif
+            @include('layouts.notifications.admin_message')
         </div>
     </div>
     <section class="section">

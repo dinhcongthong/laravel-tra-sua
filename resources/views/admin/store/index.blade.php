@@ -7,11 +7,7 @@
         <p class="text-subtitle text-muted">A good dashboard to display your store</p>
         <a href="{{ route('admin.stores.get_update') }}" class="btn btn-success mb-3 fw-bold">+ Add new</a>
         <div class="col-12 py-3">
-            @if (Session::has('message'))
-                <div class="alert alert-light-success color-success my-2">
-                    <p>{{ Session::get('message') }}</p>
-                </div>
-            @endif
+            @include('layouts.notifications.admin_message')
         </div>
     </div>
     <section class="section">
@@ -26,7 +22,7 @@
                             class="form-control w-25" placeholder="Tìm kiếm tên cửa hàng">
                     </div>
                 </form>
-                <table class='table table-striped' id="table1">
+                <table class='table' id="table1">
                     <thead>
                         <tr>
                             <th>NO</th>

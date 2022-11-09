@@ -23,7 +23,7 @@
                             class="form-control w-25" placeholder="Tìm kiếm tên sản phẩm">
                     </div>
                 </form>
-                <table class='table table-striped' id="crawler_table">
+                <table class='table' id="crawler_table">
                     <thead>
                         <tr>
                             <th>NO</th>

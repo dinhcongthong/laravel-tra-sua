@@ -11,4 +11,8 @@ interface PaymentMethodRepositoryInterface extends RepositoryInterface
      * Set model
      */
     public function setModel();
+
+    public function getAllBySearchData($searchData);
+
+    public function getActiveItems();
 }

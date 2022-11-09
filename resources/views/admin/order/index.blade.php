@@ -1,16 +1,8 @@
 @extends('layouts.admin')
 @section('stylesheet')
     <style>
-        #order_table tr:hover {
-            transform: scale(1.01)
-        }
-
         .order-detail:hover{
             cursor: pointer;
-        }
-
-        #order_table {
-            overflow-x: auto;
         }
 
         .modal-dialog {

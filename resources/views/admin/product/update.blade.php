@@ -6,19 +6,9 @@
             <h3>Update Product</h3>
             <p class="text-subtitle text-muted">{{ $store->name }}</p>
         </div>
-        @if (isset($errors) && $errors->any())
-            <div class="alert alert-light-danger color-danger my-2">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @elseif (Session::has('message'))
-            <div class="alert alert-light-success color-success my-2">
-                <p>{{ Session::get('message') }}</p>
-            </div>
-        @endif
+
+        @include('layouts.notifications.admin_message')
+
         <form action="{{ route('admin.products.post_update') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->id ?? null }}">

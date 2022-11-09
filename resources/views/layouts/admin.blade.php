@@ -75,10 +75,10 @@
                             </a>
                             <ul class="submenu p-0">
                                 {{-- sub-active class if exist --}}
-                                <li class="{{ Request()->segment(2) == 'settings/payment-method' ? 'active' : '' }}">
+                                <li class="{{ Request()->segment(3) == 'payment-method' ? 'sub-active' : '' }}">
                                     <a href="{{ route('admin.settings.payment.index') }}" class="">Cài đặt phương thức thanh toán</a>
                                 </li>
-                                <li class="{{ Request()->segment(2) == 'settings/system' ? 'sub-active' : '' }}">
+                                <li class="{{ Request()->segment(3) == 'system' ? 'sub-active' : '' }}">
                                     <a href="{{ route('admin.settings.system.index') }}" class="">Cài đặt hệ thống</a>
                                 </li>
                             </ul>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,8 @@ Route::prefix('products')->name('products.')->group(function () {
 Route::prefix('order')->name('order.')->group(function () {
     Route::post('create', [OrderController::class, 'create'])->name('create');
     Route::get('history', [OrderController::class, 'getHistoryByIds'])->name('history');
+});
+
+Route::prefix('payment-methods')->name('payment-methods.')->group(function () {
+    Route::get('/', [PaymentController::class, 'getPaymentMethodActive']);
 });
