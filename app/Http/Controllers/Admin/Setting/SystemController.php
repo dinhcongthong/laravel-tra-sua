@@ -15,25 +15,23 @@ class SystemController extends Controller
         $this->systemRepository = $systemRepository;
     }
 
-    public function index (Request $request) {
-        $data = $request->except('_token');
+    public function index(Request $request)
+    {
         $system = $this->systemRepository->first();
         if ($request->isMethod('POST')) {
-            $data['status'] = $request->status ?? 0;
-            $this->systemRepository->update($system->id, $data);
+            $data = $request->except('_token');
+            $id = $system->id ?? 1;
+            $this->systemRepository->updateOrCreate(
+                [
+                    'id' => $id
+                ],
+                $data
+            );
             return redirect()->back();
         }
 
         return view('admin.setting.system.index', [
             'system' => $system
         ]);
-    }
-
-    public function getUpdate($id = 0) {
-        return $id;
-    }
-
-    public function postUpdate(Request $request) {
-        return $request->all();
     }
 }

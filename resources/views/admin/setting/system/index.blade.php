@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-6">
                             <div class="form-check form-switch">
-                                <input class="form-check-input bg-secondary" type="checkbox" name="status" id="status" value="1" {{ $system->status == 1 ? 'checked' : '' }}>
+                                <input class="form-check-input bg-secondary" type="checkbox" name="status" id="status" value="1" {{ optional($system)->status == 1 ? 'checked' : '' }}>
                             </div>
                         </div>
                         <div class="col-10 py-5 text-center">

@@ -36,6 +36,7 @@ interface RepositoryInterface
      */
     public function update($id, array $attributes);
 
+    public function updateOrCreate (array $condition, array $attributes);
     /**
      * Delete
      * @param $id
