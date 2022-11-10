@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/library/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/main.css') }}">
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('css/library/chart.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     @yield('stylesheet')
 </head>
@@ -167,11 +168,16 @@
     </div>
     <script src="{{ asset('js/library/perfect-scroll-bar.js') }}"></script>
     <script src="{{ asset('js/library/feather.min.js') }}"></script>
+    <script src="{{ asset('js/library/chart.min.js') }}"></script>
+    <script src="{{ asset('js/library/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('js/library/dashboard.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ asset('js/library/main.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('js/admin/main.js') }}"></script>
+
+    {{-- vendors --}}
 </body>
 
 </html>
