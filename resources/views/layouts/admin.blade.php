@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="{{ asset('css/library/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/main.css') }}">
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/library/chart.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/library/chart.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/library/apexchart.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     @yield('stylesheet')
 </head>
@@ -125,13 +126,13 @@
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
+                    {{-- <div class="float-start">
                         <p>2022 &copy; Bản quyền</p>
                     </div>
                     <div class="float-end">
                         <p>thuộc về <span class='text-danger'><i data-feather="heart"></i></span>
                             <a href="https://fb.com/dinhcongthong">Đinh Công Thống</a></p>
-                    </div>
+                    </div> --}}
                 </div>
             </footer>
         </div>
@@ -168,9 +169,7 @@
     </div>
     <script src="{{ asset('js/library/perfect-scroll-bar.js') }}"></script>
     <script src="{{ asset('js/library/feather.min.js') }}"></script>
-    <script src="{{ asset('js/library/chart.min.js') }}"></script>
     <script src="{{ asset('js/library/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('js/library/dashboard.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ asset('js/library/main.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
