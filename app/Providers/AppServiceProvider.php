@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\Option\OptionRepository;
+use App\Http\Repositories\Option\OptionRepositoryInterface;
+use App\Http\Repositories\Option\OptionCategoryRepository;
+use App\Http\Repositories\Option\OptionCategoryRepositoryInterface;
 use App\Http\Repositories\Order\OrderRepository;
 use App\Http\Repositories\Order\OrderRepositoryInterface;
 use App\Http\Repositories\OrderItem\OrderItemRepository;
@@ -68,6 +72,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             SystemRepositoryInterface::class,
             SystemRepository::class
+        );
+
+        $this->app->singleton(
+            OptionRepositoryInterface::class,
+            OptionRepository::class
+        );
+
+        $this->app->singleton(
+            OptionCategoryRepositoryInterface::class,
+            OptionCategoryRepository::class
         );
     }
 

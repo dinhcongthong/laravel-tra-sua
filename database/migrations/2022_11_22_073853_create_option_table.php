@@ -16,6 +16,8 @@ class CreateOptionTable extends Migration
         Schema::create('option', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('sort_no');
+            $table->foreignId('option_category_id')->constrained('option_categories');
             $table->timestamps();
         });
     }

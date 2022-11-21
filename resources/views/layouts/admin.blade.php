@@ -52,11 +52,20 @@
                                 <span>Thống kê</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Request()->segment(2) == 'products' ? 'active' : '' }}">
-                            <a href="{{ route('admin.products.index') }}" class='sidebar-link'>
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link'>
                                 <i data-feather="layers" width="20"></i>
                                 <span>Sản phẩm</span>
                             </a>
+                            <ul class="submenu p-0">
+                                {{-- sub-active class if exist --}}
+                                <li class=" {{ Request()->segment(2) == 'products' ? 'active' : '' }}">
+                                    <a href="{{ route('admin.products.index') }}" class="">Sản phẩm</a>
+                                </li>
+                                <li class="{{ Request()->segment(3) == 'system' ? 'sub-active' : '' }}">
+                                    <a href="{{ route('admin.settings.system.index') }}" class="">Thiết lập bổ sung</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="sidebar-item {{ Request()->segment(2) == 'stores' ? 'active' : '' }}">
                             <a href="{{ route('admin.stores.index') }}" class='sidebar-link'>

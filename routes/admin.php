@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Product\CrawlerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Order\OrderController;
+use App\Http\Controllers\Admin\Product\OptionController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Setting\PaymentMethodController;
 use App\Http\Controllers\Admin\Setting\SystemController;
@@ -36,6 +37,13 @@ Route::prefix('products')->name('products.')->group(function () {
     Route::delete('delete/{id}', [ProductController::class, 'delete'])->name('delete');
     Route::get('crawler/{storeId?}', [CrawlerController::class, 'getCrawler'])->name('get_crawler');
     Route::post('post-crawler', [CrawlerController::class, 'postCrawler'])->name('post_crawler');
+
+    Route::prefix('options')->name('options.')->group(function () {
+        Route::match(['get', 'post'], 'category', [OptionController::class, 'categoryIndex'])->name('category_index');
+        Route::get('/', [OptionController::class, 'optionIndex'])->name('option_index');
+        Route::get('update', [OptionController::class, 'getOption'])->name('get_option');
+        Route::post('update', [OptionController::class, 'postOption'])->name('get_option');
+    });
 });
 
 Route::prefix('stores')->name('stores.')->group(function () {

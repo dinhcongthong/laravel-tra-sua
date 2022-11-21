@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNameToSystemTable extends Migration
+class CreateOptionCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddNameToSystemTable extends Migration
      */
     public function up()
     {
-        Schema::table('system', function (Blueprint $table) {
-            $table->string('system_name')->after('id');
+        Schema::create('option_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
         });
     }
 
@@ -25,8 +26,6 @@ class AddNameToSystemTable extends Migration
      */
     public function down()
     {
-        Schema::table('system', function (Blueprint $table) {
-            $table->dropColumn('system_name');
-        });
+        Schema::dropIfExists('option_categories');
     }
 }

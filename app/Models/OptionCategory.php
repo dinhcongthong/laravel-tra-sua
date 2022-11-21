@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class System extends Model
+class OptionCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'system';
+    protected $table = 'option_categories';
 
     protected $fillable = [
-        'system_name',
-        'time_start_open',
-        'time_end_open',
-        'status'
+        'name'
     ];
 }
