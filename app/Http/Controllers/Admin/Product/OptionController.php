@@ -26,7 +26,9 @@ class OptionController extends Controller
         return 244;
     }
 
-    public function optionIndex () {
-        return 1111;
+    public function index () {
+        $optionCategory = $this->optionCategoryRepository->getAll();
+        // return $optionCategory;
+        return view('admin.option.index', ['optionCategory' => $optionCategory]);
     }
 }

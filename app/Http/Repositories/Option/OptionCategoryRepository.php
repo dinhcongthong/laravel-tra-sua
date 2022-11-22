@@ -18,4 +18,8 @@ class OptionCategoryRepository extends BaseRepository implements OptionCategoryR
     {
         return OptionCategory::class;
     }
+
+    public function getAll() {
+        return $this->model->with('getOptions')->get();
+    }
 }

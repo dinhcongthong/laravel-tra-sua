@@ -185,7 +185,10 @@ body {
 table tr:hover {
     --bs-table-accent-bg: var(--bs-table-striped-bg);
     color: var(--bs-table-striped-color);
-    transform: scale(1.01)
+    transform: scale(1.01);
+}
+table tr {
+    transition: 0.3s;
 }
 table {
     overflow-x: auto;
@@ -207,7 +210,11 @@ table {
 }
 
 ul.submenu:has(.sub-active) {
-    overflow: visible !important;
+    overflow: visible;
+}
+
+ul.submenu:focus {
+    overflow: hidden;
 }
 
 .sub-active a::before {

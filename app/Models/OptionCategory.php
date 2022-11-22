@@ -14,4 +14,8 @@ class OptionCategory extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function getOptions() {
+        return $this->hasMany('App\Models\Option', 'option_category_id', 'id');
+    }
 }

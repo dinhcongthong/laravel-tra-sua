@@ -39,10 +39,10 @@ Route::prefix('products')->name('products.')->group(function () {
     Route::post('post-crawler', [CrawlerController::class, 'postCrawler'])->name('post_crawler');
 
     Route::prefix('options')->name('options.')->group(function () {
-        Route::match(['get', 'post'], 'category', [OptionController::class, 'categoryIndex'])->name('category_index');
-        Route::get('/', [OptionController::class, 'optionIndex'])->name('option_index');
+        // Route::match(['get', 'post'], 'category', [OptionController::class, 'categoryIndex'])->name('category_index');
+        Route::get('/', [OptionController::class, 'index'])->name('index');
         Route::get('update', [OptionController::class, 'getOption'])->name('get_option');
-        Route::post('update', [OptionController::class, 'postOption'])->name('get_option');
+        Route::post('update', [OptionController::class, 'postOption'])->name('post_option');
     });
 });
 

@@ -52,18 +52,18 @@
                                 <span>Thống kê</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i data-feather="layers" width="20"></i>
                                 <span>Sản phẩm</span>
                             </a>
-                            <ul class="submenu p-0">
+                            <ul class="submenu p-0 {{ Request()->segment(2) == 'products' ? 'active' : '' }}">
                                 {{-- sub-active class if exist --}}
-                                <li class=" {{ Request()->segment(2) == 'products' ? 'active' : '' }}">
+                                <li class="{{ Request()->segment(2) == 'products' && Request()->segment(3) != 'options' ? 'sub-active' : '' }}">
                                     <a href="{{ route('admin.products.index') }}" class="">Sản phẩm</a>
                                 </li>
-                                <li class="{{ Request()->segment(3) == 'system' ? 'sub-active' : '' }}">
-                                    <a href="{{ route('admin.settings.system.index') }}" class="">Thiết lập bổ sung</a>
+                                <li class="{{ Request()->segment(3) == 'options' ? 'sub-active' : '' }}">
+                                    <a href="{{ route('admin.products.options.index') }}" class="">Thiết lập bổ sung</a>
                                 </li>
                             </ul>
                         </li>
@@ -84,7 +84,7 @@
                                 <i data-feather="settings" width="20"></i>
                                 <span>Cài đặt</span>
                             </a>
-                            <ul class="submenu p-0">
+                            <ul class="submenu p-0 {{ Request()->segment(2) == 'settings' ? 'active' : '' }}">
                                 {{-- sub-active class if exist --}}
                                 <li class="{{ Request()->segment(3) == 'payment-method' ? 'sub-active' : '' }}">
                                     <a href="{{ route('admin.settings.payment.index') }}" class="">Cài đặt phương thức thanh toán</a>
@@ -144,36 +144,6 @@
                     </div> --}}
                 </div>
             </footer>
-        </div>
-    </div>
-
-    <!--Basic Delete Modal -->
-    <div class="modal fade text-left" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="mydel_modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mydel_modal">Xoa 1 item</h5>
-                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Ban co thuc su muon xoa muc nay khong?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button type="button" class="btn btn-danger ml-1" id="btn_confirm" data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Accept</span>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
     <script src="{{ asset('js/library/perfect-scroll-bar.js') }}"></script>
