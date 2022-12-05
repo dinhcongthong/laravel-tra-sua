@@ -227,3 +227,6 @@ ul.submenu:focus {
     background-color: orange !important;
     width: 5px;
 }
+.ml-auto {
+    margin-left: auto;
+}
