@@ -30,7 +30,7 @@ class CrawlerController extends Controller
 
     public function getCrawler ($storeId) {
         $store = $this->storeRepository->getProducts($storeId);
-        $products = $this->productRepository->getByStore($storeId);
+        $products = $this->productRepository->crawlerGetByStoreIndex($storeId);
         return view('admin.product.crawler', ['store' => $store, 'products' => $products]);
     }
 

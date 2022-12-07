@@ -19,8 +19,18 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return Product::class;
     }
 
-    public function getByStore ($storeId) {
-        return $this->model->whereStoreId($storeId)->with('getImage')->get();
+    public function crawlerGetByStoreIndex($storeId) {
+        return $this->model->whereStoreId($storeId)->with('getImage', 'getStatus')->paginate(15);
+    }
+
+    public function getApiByStore ($storeId) {
+        return $this->model
+                    ->whereStoreId($storeId)
+                    ->with('getImage')
+                    ->with(['getProductOption' => function ($q) {
+                        return $q->with('getOptionCategory');
+                    }])
+                    ->get(['id', 'name', 'description', 'gallery_id', 'price']);
     }
 
     public function getAllBySearchData($searchData) {

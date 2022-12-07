@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $table = 'product';
 
     protected $fillable = [
@@ -20,6 +21,10 @@ class Product extends Model
         'discount',
         'product_status_id',
     ];
+
+    public function getProductOption() {
+        return $this->belongsToMany(Option::class, 'product_option', 'product_id', 'option_id')->withPivot('price');
+    }
 
     public function getStore() {
         return $this->belongsTo(Store::class, 'store_id', 'id');

@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         $storeId = $request->storeId;
         $searchData = $request->search;
-        $productFromStore = $this->productRepository->getByStore($storeId);
+        $productFromStore = $this->productRepository->getApiByStore($storeId);
         if ($productFromStore->count() == 0) {
             $productFromStore = $this->storeRepository->getAllProductsBySearchData($searchData);
         }

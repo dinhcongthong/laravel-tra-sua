@@ -15,7 +15,9 @@ interface ProductRepositoryInterface extends RepositoryInterface
     /**
      * @param $store_id
      */
-    public function getByStore($storeId);
+    public function getApiByStore($storeId);
+
+    public function crawlerGetByStoreIndex($storeId);
 
     public function getAllBySearchData ($searchData);
 }

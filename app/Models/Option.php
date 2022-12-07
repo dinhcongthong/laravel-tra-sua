@@ -12,4 +12,8 @@ class Option extends Model
     protected $table = 'option';
 
     protected $fillable = ['name', 'option_category_id', 'sort_no'];
+
+    public function getOptionCategory () {
+        return $this->belongsTo(OptionCategory::class, 'option_category_id', 'id');
+    }
 }
