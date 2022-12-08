@@ -12,10 +12,8 @@
             transition: 0.2s;
         }
         .option-items-bg div.d-block:nth-child(odd) {
-            border: 2px solid #ededed;
-            border-radius: 5px;
-            background-color: #ededed;
-            border-color: #ededed;
+            border: 0;
+            background-color: #edededa6;
         }
     </style>
 @endsection
@@ -34,7 +32,7 @@
                                     {{ $optionCategory->name }}
                                 </a>
                                 <div class="ml-auto">
-                                    <a href="#">
+                                    <a href="#" class="category-edit" data-id="{{ $optionCategory->id }}" data-name="{{ $optionCategory->name }}">
                                         <i data-feather="edit" title="Edit"></i>
                                     </a>
                                 </div>
@@ -46,7 +44,7 @@
                                             <div class="d-flex">
                                                 <p>{{ $item->name }}</p>
                                                 <div class="ml-auto">
-                                                    <a href="#">
+                                                    <a href="#" class="option-edit" data-id="{{ $item->id }}">
                                                         <i data-feather="edit" title="Edit"></i>
                                                     </a>
                                                 </div>
@@ -61,4 +59,7 @@
             </div>
         </section>
     </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/admin/option.js') }}"></script>
 @endsection
