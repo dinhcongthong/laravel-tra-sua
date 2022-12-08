@@ -31,4 +31,11 @@ class OptionController extends Controller
         // return $optionCategory;
         return view('admin.option.index', ['optionCategory' => $optionCategory]);
     }
+
+    public function postOption ($id, Request $request) {
+        $optionCategory = $this->optionCategoryRepository->findOrFail($id);
+        $optionCategory->name = $request->name;
+        $optionCategory->save();
+        return \sendResponse($optionCategory, 'thanhcong');
+    }
 }

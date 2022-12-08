@@ -15,6 +15,8 @@ class OptionCategory extends Model
         'name'
     ];
 
+    public $timestamps = false;
+
     public function getOptions() {
         return $this->hasMany('App\Models\Option', 'option_category_id', 'id');
     }

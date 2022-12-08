@@ -5,12 +5,14 @@
             border-bottom: 2px solid #0000000d;
             padding-bottom: 1.5rem;
         }
+
         .category-items:hover {
             --bs-table-accent-bg: var(--bs-table-striped-bg);
             color: #727e8c;
             transform: scale(1.01);
             transition: 0.2s;
         }
+
         .option-items-bg div.d-block:nth-child(odd) {
             border: 0;
             background-color: #edededa6;
@@ -25,14 +27,16 @@
                 <div class="card-body">
                     @foreach ($optionCategory as $optionCategory)
                         <div class="d-block my-4 category-items">
-                            <div class="d-flex">
+                            <div class="d-flex category{{ $optionCategory->id }}">
                                 <a class="" data-bs-toggle="collapse" role="button"
                                     href="#category{{ $optionCategory->id }}" aria-expanded="false"
                                     aria-controls="category{{ $optionCategory->id }}">
                                     {{ $optionCategory->name }}
                                 </a>
                                 <div class="ml-auto">
-                                    <a href="#" class="category-edit" data-id="{{ $optionCategory->id }}" data-name="{{ $optionCategory->name }}">
+                                    <a href="#" class="category-edit" data-id="{{ $optionCategory->id }}"
+                                        data-name="{{ $optionCategory->name }}"
+                                        data-url="{{ route('admin.products.options.post_option', $optionCategory->id) }}">
                                         <i data-feather="edit" title="Edit"></i>
                                     </a>
                                 </div>
