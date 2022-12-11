@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    <div class="w-50 m-auto">
+    <div class="w-75 m-auto">
         <section class="section">
             <div class="card">
                 <div class="card-body">
@@ -36,7 +36,7 @@
                                 <div class="ml-auto">
                                     <a href="#" class="category-edit" data-id="{{ $optionCategory->id }}"
                                         data-name="{{ $optionCategory->name }}"
-                                        data-url="{{ route('admin.products.options.post_option', $optionCategory->id) }}">
+                                        data-url="{{ route('admin.products.options.post_option_category', $optionCategory->id) }}">
                                         <i data-feather="edit" title="Edit"></i>
                                     </a>
                                 </div>
@@ -44,11 +44,13 @@
                             <div id="category{{ $optionCategory->id }}" class="collapse" aria-labelledby="headingOne">
                                 <div class="p-3 option-items-bg">
                                     @foreach ($optionCategory->getOptions as $item)
-                                        <div class="d-block px-2 pt-3">
-                                            <div class="d-flex">
+                                        <div class="d-block px-2 py-3 option-items">
+                                            <div class="d-flex option{{ $item->id }}">
                                                 <p>{{ $item->name }}</p>
                                                 <div class="ml-auto">
-                                                    <a href="#" class="option-edit" data-id="{{ $item->id }}">
+                                                    <a href="#" class="option-edit" data-id="{{ $item->id }}"
+                                                        data-name="{{ $item->name }}"
+                                                        data-url="{{ route('admin.products.options.post_option', $item->id) }}">
                                                         <i data-feather="edit" title="Edit"></i>
                                                     </a>
                                                 </div>

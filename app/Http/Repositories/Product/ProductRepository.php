@@ -39,4 +39,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->where('name', 'like', '%' . $searchData . '%')
             ->paginate(15);
     }
+
+    public function findDetail($id) {
+        return $this->model->with('getProductOption')->find($id);
+    }
 }

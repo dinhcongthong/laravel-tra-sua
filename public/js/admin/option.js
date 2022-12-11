@@ -1,8 +1,9 @@
 $(document).ready(function () {
+    updateOptionCategory();
     updateOption();
 });
 
-function updateOption() {
+function updateOptionCategory() {
     $('.category-edit').on('click', function (e) {
         e.preventDefault();
         $('.category-edit').addClass('d-none');
@@ -13,13 +14,13 @@ function updateOption() {
         var html = `
             <div class="d-flex new-category${optionCategoryId}">
                 <input type="text" id="new_category_${optionCategoryId}" class="form-control me-3 w-75" value="${optionCategoryName}">
-                <a href="#" class="option-update btn btn-success">Cập nhật</a>
+                <a href="#" class="option-category-update btn btn-success">Cập nhật</a>
             </div>
         `;
         $(this).parents('.category-items').append(html);
         $(this).parents('.d-flex').addClass('d-none');
 
-        $('.option-update').on('click', function (e) {
+        $('.option-category-update').on('click', function (e) {
             let newOptionCategoryName = $(this).parents('.category-items').find('.new-category' + optionCategoryId + ' input').val();
 
             postUpdate(url, newOptionCategoryName);
@@ -31,12 +32,49 @@ function updateOption() {
     });
 }
 
+function updateOption () {
+    $('.option-edit').on('click', function (e) {
+        e.preventDefault();
+
+        $('.option-edit').addClass('d-none');
+        let optionId = $(this).data('id');
+        let optionName = $(this).data('name');
+        let url = $(this).data('url');
+        let html = `
+            <div class="d-flex new-option${optionId}">
+                <input type="text" id="new_option${optionId}" class="form-control me-3 w-75" value="${optionName}">
+                <a href="#" class="option-update btn btn-success">Cập nhật</a>
+            </div>
+        `;
+        $(this).parents('.option-items').append(html);
+        $(this).parents('.d-flex').addClass('d-none');
+
+        $('.option-update').on('click', function () {
+            let newOptionName = $('#new_option' + optionId).val();
+            console.log(newOptionName);
+            postUpdate(url, newOptionName);
+
+            $('.new-option' + optionId).remove();
+            $('.option' + optionId + '> p').text(newOptionName);
+            $('.option' + optionId).removeClass('d-none');
+            $('.option-edit').removeClass('d-none');
+        })
+    })
+}
+
+
 function postUpdate(url, name) {
     $.ajax({
         url,
         method: "POST",
         data: {
             name
+        },
+        beforeSend: function () {
+            rootLoader.show();
+        },
+        complete: function () {
+            rootLoader.hide();
         }
     })
     .done(function (response) {

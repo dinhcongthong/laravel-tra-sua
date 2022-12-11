@@ -20,4 +20,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function crawlerGetByStoreIndex($storeId);
 
     public function getAllBySearchData ($searchData);
+
+    public function findDetail($id);
 }

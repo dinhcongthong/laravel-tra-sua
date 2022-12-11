@@ -17,7 +17,7 @@ class CreateProductOptionTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('product');
             $table->foreignId('option_id')->constrained('option');
-            $table->string('price');
+            $table->bigInteger('price');
             $table->timestamps();
         });
     }

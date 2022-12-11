@@ -22,20 +22,28 @@ class OptionController extends Controller
         $this->optionCategoryRepository = $optionCategoryRepository;
     }
 
-    public function optionCategoryIndex () {
-        return 244;
-    }
-
     public function index () {
         $optionCategory = $this->optionCategoryRepository->getAll();
-        // return $optionCategory;
         return view('admin.option.index', ['optionCategory' => $optionCategory]);
     }
 
+    public function postOptionCategory ($id, Request $request) {
+        return $this->postUpdate($id, $request, $this->optionCategoryRepository);
+    }
+
     public function postOption ($id, Request $request) {
-        $optionCategory = $this->optionCategoryRepository->findOrFail($id);
-        $optionCategory->name = $request->name;
-        $optionCategory->save();
-        return \sendResponse($optionCategory, 'thanhcong');
+        return $this->postUpdate($id, $request, $this->optionRepository);
+
+    }
+
+    private function postUpdate($id, Request $request, $repository) {
+        $Object = $repository->findOrFail($id);
+        $Object->name = $request->name;
+        $Object->save();
+        return \sendResponse($Object, 'thanhcong');
+    }
+
+    public function getOptionContent($optionCategoryId, $productId) {
+        return sendResponse(compact('optionCategoryId', 'productId'), 'thanh cong');
     }
 }

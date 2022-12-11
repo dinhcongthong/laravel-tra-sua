@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Repositories\Option\OptionCategoryRepositoryInterface;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\ProductStatus\ProductStatusRepository;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
@@ -21,14 +21,19 @@ class ProductController extends Controller
 
     private $productStatusRepository;
 
+    private $optionCategoryRepository;
+
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         StoreRepositoryInterface $storeRepository,
-        ProductStatusRepository $productStatusRepository
+        ProductStatusRepository $productStatusRepository,
+        OptionCategoryRepositoryInterface $optionCategoryRepository,
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->productStatusRepository = $productStatusRepository;
+        $this->optionCategoryRepository = $optionCategoryRepository;
     }
 
     public function index(Request $request)
@@ -40,18 +45,21 @@ class ProductController extends Controller
     public function getUpdateFromStore($storeId, $productId = 0)
     {
         $store = $this->storeRepository->findOrFail($storeId);
-        $product = $this->productRepository->find($productId);
+        $product = $this->productRepository->findDetail($productId);
         $productStatus = $this->productStatusRepository->getAll();
+        $optionCategories = $this->optionCategoryRepository->getAll();
 
-        return view('admin.product.update', [
-            'product' => $product,
-            'productStatus' => $productStatus,
-            'store' => $store
-        ]);
+        return view('admin.product.update', compact(
+            'store',
+            'product',
+            'productStatus',
+            'optionCategories'
+        ));
     }
 
     public function postUpdate(ProductRequest $request)
     {
+        return $request->all();
         $id = $request->product_id ?? 0;
         $product = $this->productRepository->find($id);
         $data = [
