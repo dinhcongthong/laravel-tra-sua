@@ -57,6 +57,18 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
+     * Get one or create new
+     * @param $id
+     * @return mixed
+     */
+    public function findOrNew($id)
+    {
+        $result = $this->model->findOrNew($id);
+
+        return $result;
+    }
+
+    /**
      * Get one
      * @param $id
      * @return mixed or 404 if null.
@@ -81,17 +93,6 @@ abstract class BaseRepository implements RepositoryInterface
     {
 
         return $this->model->create($attributes);
-    }
-
-    /**
-     * Create Many
-     * @param array $attributes
-     * @return mixed
-     */
-    public function createMany(array $attributes)
-    {
-
-        return $this->model->createMany($attributes);
     }
 
     /**

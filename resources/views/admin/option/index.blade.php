@@ -25,6 +25,12 @@
         <section class="section">
             <div class="card">
                 <div class="card-body">
+                    <div class="d-block">
+                        <a href="#" class="btn btn-success rounded-pill" data-bs-toggle="modal"
+                            data-bs-target="#categoryNewModal">
+                            <i data-feather="plus-square" title="Them moi"></i> Thêm mới
+                        </a>
+                    </div>
                     @foreach ($optionCategory as $optionCategory)
                         <div class="d-block my-4 category-items">
                             <div class="d-flex category{{ $optionCategory->id }}">
@@ -64,6 +70,24 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="categoryNewModal" tabindex="-1" aria-labelledby="categoryNewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryNewLabel">Thêm một danh mục mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="create_option_category">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveNewOptionCategory()">Lưu</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('scripts')

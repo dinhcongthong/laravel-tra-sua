@@ -40,8 +40,8 @@ Route::prefix('products')->name('products.')->group(function () {
 
     Route::prefix('options')->name('options.')->group(function () {
         Route::get('/', [OptionController::class, 'index'])->name('index');
-        Route::post('update-category/{id}', [OptionController::class, 'postOptionCategory'])->name('post_option_category');
-        Route::post('update/{id}', [OptionController::class, 'postOption'])->name('post_option');
+        Route::post('update-category/{id?}', [OptionController::class, 'postOptionCategory'])->name('post_option_category');
+        Route::post('update/{id?}', [OptionController::class, 'postOption'])->name('post_option');
 
         Route::get('get-option-content/{optionCategoryId}/{productId}', [OptionController::class, 'getOptionContent']);
         Route::post('post-option-content/{productId}', [OptionController::class, 'postOptionContent']);

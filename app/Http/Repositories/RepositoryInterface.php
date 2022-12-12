@@ -17,6 +17,13 @@ interface RepositoryInterface
      */
     public function find($id);
 
+    /**
+     * Get one or create new
+     * @param $id
+     * @return mixed
+     */
+    public function findOrNew($id);
+
     public function findOrFail($id);
 
     public function first();
@@ -27,13 +34,6 @@ interface RepositoryInterface
      * @return mixed
      */
     public function create(array $attributes);
-
-    /**
-     * Create Many
-     * @param array $attributes
-     * @return mixed
-     */
-    public function createMany(array $attributes);
 
     /**
      * Update

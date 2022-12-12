@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\Option\OptionCategoryRepositoryInterface;
 use App\Http\Repositories\Option\OptionRepositoryInterface;
 use App\Http\Repositories\ProductOption\ProductOptionRepositoryInterface;
+use App\Models\Option;
+use App\Models\ProductOption;
 use Illuminate\Http\Request;
 
 class OptionController extends Controller
@@ -20,49 +22,55 @@ class OptionController extends Controller
         OptionRepositoryInterface $optionRepository,
         OptionCategoryRepositoryInterface $optionCategoryRepository,
         ProductOptionRepositoryInterface  $productOptionRepository
-    )
-    {
+    ) {
         $this->optionRepository = $optionRepository;
         $this->optionCategoryRepository = $optionCategoryRepository;
         $this->productOptionRepository = $productOptionRepository;
     }
 
-    public function index () {
+    public function index()
+    {
         $optionCategory = $this->optionCategoryRepository->getAll();
         return view('admin.option.index', ['optionCategory' => $optionCategory]);
     }
 
-    public function postOptionCategory ($id, Request $request) {
+    public function postOptionCategory($id = 0, Request $request)
+    {
         return $this->postUpdate($id, $request, $this->optionCategoryRepository);
     }
 
-    public function postOption ($id, Request $request) {
+    public function postOption($id = 0, Request $request)
+    {
         return $this->postUpdate($id, $request, $this->optionRepository);
-
     }
 
-    private function postUpdate($id, Request $request, $repository) {
-        $Object = $repository->findOrFail($id);
+    private function postUpdate($id, Request $request, $repository)
+    {
+        $Object = $repository->findOrNew($id);
         $Object->name = $request->name;
         $Object->save();
         return \sendResponse($Object, 'thanhcong');
     }
 
-    public function getOptionContent($optionCategoryId, $productId) {
+    public function getOptionContent($optionCategoryId, $productId)
+    {
         $result = $this->optionRepository->getOptionContent($optionCategoryId, $productId);
 
         return sendResponse(compact('result'), 'Thành công!');
     }
 
-    // Đang sai đừng lưu
-    public function postOptionContent (Request $request, $productId) {
+    public function postOptionContent(Request $request, $productId)
+    {
         foreach ($request->price as $key => $item) {
             if (!is_null($item)) {
                 $data = [];
                 $data['product_id'] = $productId;
                 $data['price'] = $item;
                 $data['option_id'] = $request->id[$key];
-                $this->productOptionRepository->updateOrCreate($data, $data);
+                $this->productOptionRepository->updateOrCreate([
+                    'product_id' => $productId,
+                    'option_id' => $request->id[$key]
+                ], $data);
             }
         }
         return sendResponse($data, 'Thành công!');

@@ -86,3 +86,10 @@ function postUpdate(url, name) {
         toastr.error('Cập nhật thất bại');
     })
 }
+
+function saveNewOptionCategory () {
+    let newOptionCategoryName = $('#create_option_category').val();
+    let url = baseUrl + '/products/options/update-category/0';
+    postUpdate(url, newOptionCategoryName);
+    location.reload();
+}
