@@ -84,6 +84,17 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
+     * Create Many
+     * @param array $attributes
+     * @return mixed
+     */
+    public function createMany(array $attributes)
+    {
+
+        return $this->model->createMany($attributes);
+    }
+
+    /**
      * Update
      * @param $id
      * @param array $attributes

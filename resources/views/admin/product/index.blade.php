@@ -26,9 +26,8 @@
                 <table class='table' id="crawler_table">
                     <thead>
                         <tr>
-                            <th>NO</th>
-                            <th>Image</th>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Store</th>
                             <th>Description</th>
@@ -41,11 +40,10 @@
                         @if (!empty($products))
                             @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $product->id }}</td>
                                     <td>
                                         <img src="{{ $product->getImage->url }}" width="80" alt="">
                                     </td>
-                                    <td>{{ $product->id }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->getStore->name }}</td>
                                     <td>{{ $product->description }}</td>

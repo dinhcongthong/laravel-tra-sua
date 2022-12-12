@@ -29,6 +29,26 @@ class OptionSeeder extends Seeder
                 'name' => 'XL',
                 'sort_no' => 3,
                 'option_category_id' => 1,
+            ],
+            [
+                'name' => 'Trân châu trắng',
+                'sort_no' => 1,
+                'option_category_id' => 2
+            ],
+            [
+                'name' => 'Trân châu đen',
+                'sort_no' => 2,
+                'option_category_id' => 2
+            ],
+            [
+                'name' => 'Thạch dừa',
+                'sort_no' => 3,
+                'option_category_id' => 2
+            ],
+            [
+                'name' => 'Bánh flan',
+                'sort_no' => 4,
+                'option_category_id' => 2
             ]
         ];
 

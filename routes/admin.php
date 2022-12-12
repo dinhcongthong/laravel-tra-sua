@@ -44,6 +44,7 @@ Route::prefix('products')->name('products.')->group(function () {
         Route::post('update/{id}', [OptionController::class, 'postOption'])->name('post_option');
 
         Route::get('get-option-content/{optionCategoryId}/{productId}', [OptionController::class, 'getOptionContent']);
+        Route::post('post-option-content/{productId}', [OptionController::class, 'postOptionContent']);
     });
 });
 

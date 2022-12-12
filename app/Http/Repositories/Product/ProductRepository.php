@@ -27,7 +27,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $this->model
                     ->whereStoreId($storeId)
                     ->with('getImage')
-                    ->with(['getProductOption' => function ($q) {
+                    ->with(['getOptions' => function ($q) {
                         return $q->with('getOptionCategory');
                     }])
                     ->get(['id', 'name', 'description', 'gallery_id', 'price']);
@@ -41,6 +41,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     public function findDetail($id) {
-        return $this->model->with('getProductOption')->find($id);
+        return $this->model->with('getOptions')->find($id);
     }
 }

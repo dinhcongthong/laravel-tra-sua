@@ -20,22 +20,14 @@
 </head>
 
 <body>
-<div class="main-loader">
-    <div class="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="main-loader" style="display: none;">
+        <div class="box">
+            <div class="loader"><span></span></div>
+            <div class="loader"><span></span></div>
+            <div class="loader"><i></i></div>
+            <div class="loader"><i></i></div>
+        </div>
     </div>
-</div>
     <div id="app">
         <div id="sidebar" class='active'>
             <div class="sidebar-wrapper active">

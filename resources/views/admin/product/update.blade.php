@@ -9,7 +9,8 @@
             <div class="card-body">
                 @include('layouts.notifications.admin_message')
 
-                <form action="{{ route('admin.products.post_update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.products.post_update') }}" method="post" enctype="multipart/form-data"
+                    id="product_form">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id ?? null }}">
                     <input type="hidden" name="crawl_id" value="{{ $product->crawl_id ?? null }}">
@@ -63,8 +64,8 @@
                                 <div class="d-flex align-items-end">
                                     <div class="w-75">
                                         <label for="option_category">Thiết lập bổ sung</label>
-                                        <select name="option_category" id="option_category" class="form-control" onchange="getOptionContent($(this), {{ $product->id }})">
-                                            <option>Vui lòng chọn một tùy chỉnh bổ sung</option>
+                                        <select name="option_category" id="option_category" class="form-control">
+                                            <option value="">Vui lòng chọn một tùy chỉnh bổ sung</option>
                                             @foreach ($optionCategories as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -72,61 +73,54 @@
                                     </div>
                                     <div class="ml-auto">
                                         <a href="" data-bs-toggle="modal" data-bs-target="#optionModal"
-                                            class="btn btn-dark">Thiết lập</a>
+                                            id="btn_setup" class="btn btn-dark"
+                                            onclick="getOptionContent({{ $product->id }})">Thiết lập
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         @endif
                     </div>
 
-                    {{-- modal --}}
-                    <div class="modal fade" id="optionModal" tabindex="-1" aria-labelledby="optionModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="optionModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>NO</th>
-                                                <th>Loai</th>
-                                                <th>Gia</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- @foreach ($product->getProductOption as $option)
-                                            <tr>
-                                                <td>{{ $loop->index + 1 }}</td>
-                                                <td>
-                                                    <input type="text" name="option_name[]" class="form-control" value="{{ $option->name }}">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="option_price[]" class="form-control" value="{{ $option->pivot->price }}">
-                                                </td>
-                                            </tr>
-                                        @endforeach --}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
-                                        changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="text-center py-3">
-                        <button type="submit" class="btn btn-success">Lưu</button>
+                        <button type="submit" class="btn btn-success" id="btn_submit">Lưu</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+
+    {{-- modal --}}
+    <div class="modal fade" id="optionModal" tabindex="-1" aria-labelledby="optionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="optionModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="option_form">
+                        <table class="table table-bordered" id="option_table">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>Loại</th>
+                                    <th>Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn_save_option"
+                        onclick="saveOption({{ $product->id }})" data-bs-dismiss="modal">
+                        Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('scripts')
     <script src="{{ asset('js/admin/product.js') }}"></script>

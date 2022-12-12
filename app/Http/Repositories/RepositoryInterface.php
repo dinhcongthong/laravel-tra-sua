@@ -29,6 +29,13 @@ interface RepositoryInterface
     public function create(array $attributes);
 
     /**
+     * Create Many
+     * @param array $attributes
+     * @return mixed
+     */
+    public function createMany(array $attributes);
+
+    /**
      * Update
      * @param $id
      * @param array $attributes

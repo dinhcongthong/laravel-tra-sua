@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Option\OptionCategoryRepositoryInterface;
 use App\Http\Repositories\Option\OptionRepositoryInterface;
+use App\Http\Repositories\ProductOption\ProductOptionRepositoryInterface;
 use Illuminate\Http\Request;
 
 class OptionController extends Controller
@@ -13,13 +14,17 @@ class OptionController extends Controller
 
     private $optionCategoryRepository;
 
+    private $productOptionRepository;
+
     public function __construct(
         OptionRepositoryInterface $optionRepository,
-        OptionCategoryRepositoryInterface $optionCategoryRepository
+        OptionCategoryRepositoryInterface $optionCategoryRepository,
+        ProductOptionRepositoryInterface  $productOptionRepository
     )
     {
         $this->optionRepository = $optionRepository;
         $this->optionCategoryRepository = $optionCategoryRepository;
+        $this->productOptionRepository = $productOptionRepository;
     }
 
     public function index () {
@@ -44,6 +49,22 @@ class OptionController extends Controller
     }
 
     public function getOptionContent($optionCategoryId, $productId) {
-        return sendResponse(compact('optionCategoryId', 'productId'), 'thanh cong');
+        $result = $this->optionRepository->getOptionContent($optionCategoryId, $productId);
+
+        return sendResponse(compact('result'), 'Thành công!');
+    }
+
+    // Đang sai đừng lưu
+    public function postOptionContent (Request $request, $productId) {
+        foreach ($request->price as $key => $item) {
+            if (!is_null($item)) {
+                $data = [];
+                $data['product_id'] = $productId;
+                $data['price'] = $item;
+                $data['option_id'] = $request->id[$key];
+                $this->productOptionRepository->updateOrCreate($data, $data);
+            }
+        }
+        return sendResponse($data, 'Thành công!');
     }
 }

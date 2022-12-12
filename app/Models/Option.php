@@ -16,4 +16,8 @@ class Option extends Model
     public function getOptionCategory () {
         return $this->belongsTo(OptionCategory::class, 'option_category_id', 'id');
     }
+
+    public function getProductOptions () {
+        return $this->hasMany(ProductOption::class, 'option_id', 'id');
+    }
 }

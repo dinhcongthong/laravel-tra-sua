@@ -6,4 +6,6 @@ use App\Http\Repositories\RepositoryInterface;
 interface OptionRepositoryInterface extends RepositoryInterface
 {
     public function getModel();
+
+    public function getOptionContent ($optionCategoryId, $productId);
 }

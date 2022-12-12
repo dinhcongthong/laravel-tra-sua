@@ -22,7 +22,7 @@ class Product extends Model
         'product_status_id',
     ];
 
-    public function getProductOption() {
+    public function getOptions() {
         return $this->belongsToMany(Option::class, 'product_option', 'product_id', 'option_id')->withPivot('price');
     }
 

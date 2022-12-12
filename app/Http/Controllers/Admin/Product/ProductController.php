@@ -28,7 +28,7 @@ class ProductController extends Controller
         ProductRepositoryInterface $productRepository,
         StoreRepositoryInterface $storeRepository,
         ProductStatusRepository $productStatusRepository,
-        OptionCategoryRepositoryInterface $optionCategoryRepository,
+        OptionCategoryRepositoryInterface $optionCategoryRepository
     ) {
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
