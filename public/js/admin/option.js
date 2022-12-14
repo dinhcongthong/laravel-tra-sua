@@ -1,6 +1,7 @@
 $(document).ready(function () {
     updateOptionCategory();
     updateOption();
+    saveNewOption();
 });
 
 function updateOptionCategory() {
@@ -94,16 +95,42 @@ async function saveNewOptionCategory () {
     location.reload();
 }
 
-async function saveNewOption (categoryName, categoryId, url) {
-    let newOptionName = $('#create_option').val();
+async function saveNewOption () {
+    $('.create-new-option').on('click', function (e) {
+        e.preventDefault();
+        let categoryName = $(this).data('title');
+        let categoryId = $(this).data('id');
+        let url = $(this).data('url');
 
-    let title = 'Thêm một ' + categoryName + ' mới'
-    $('#optionNewLabel').text(title);
+        let title = 'Thêm một ' + categoryName + ' mới'
+        $('#optionNewLabel').text(title);
 
-    $('#btn_save_new_option').on('click', function (e) {
-        // $.ajax({
+        $('#btn_save_new_option').on('click', function (e) {
+            let newOptionName = $('#create_option').val();
+            $.ajax({
+                url,
+                method: 'POST',
+                data: {
+                    categoryId,
+                    newOptionName,
+                    sortNo: 1
+                },
+                beforeSend: function() {
+                    rootLoader.show();
+                },
+                complete: function () {
+                    rootLoader.hide();
+                }
+            })
+            .done(function (response) {
+                toastr.success('Thành Công!!!');
+                console.log(response);
+            })
+            .fail(function (xhr, status, err) {
+                toastr.error('Thất bại cmnr~~~');
+            })
+        })
 
-        // })
     })
 }
 

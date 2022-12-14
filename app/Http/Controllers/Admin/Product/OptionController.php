@@ -40,7 +40,12 @@ class OptionController extends Controller
     }
 
     public function postNewOption (Request $request) {
-        $data = $request->except('_token');
+        $data = [
+            'name' => $request->newOptionName,
+            'sort_no' => $request->sortNo,
+            'option_category_id' => $request->categoryId
+        ];
+        $this->optionRepository->create($data);
         return sendResponse(compact('data'), 'Thành công!');
     }
 

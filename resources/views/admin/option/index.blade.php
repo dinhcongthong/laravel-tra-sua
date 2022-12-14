@@ -49,7 +49,9 @@
                                         onclick="deleteOptionCategory(`{{ route('admin.products.options.category_delete', $optionCategory->id) }}`, event)">
                                         <i data-feather="trash-2"></i>
                                     </a>
-                                    <a href="#" class="text-success" onclick="saveNewOption(`{{ $optionCategory->name }}`, `{{ $optionCategory->id }}`, `{{ route('admin.products.options.post_new_option') }}`)"
+                                    <a href="#" class="text-success create-new-option"
+                                        data-title="{{ $optionCategory->name }}" data-id="{{ $optionCategory->id }}"
+                                        data-url="{{ route('admin.products.options.post_new_option') }}"
                                         data-bs-target="#optionNewModal" data-bs-toggle="modal">
                                         <i data-feather="plus-square"></i>
                                     </a>
