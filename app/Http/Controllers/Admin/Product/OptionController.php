@@ -39,7 +39,12 @@ class OptionController extends Controller
         return $this->postUpdate($id, $request, $this->optionCategoryRepository);
     }
 
-    public function postOption($id = 0, Request $request)
+    public function postNewOption (Request $request) {
+        $data = $request->except('_token');
+        return sendResponse(compact('data'), 'Thành công!');
+    }
+
+    public function postUpdateOption($id = 0, Request $request)
     {
         return $this->postUpdate($id, $request, $this->optionRepository);
     }
@@ -74,5 +79,27 @@ class OptionController extends Controller
             }
         }
         return sendResponse($data, 'Thành công!');
+    }
+
+    public function categoryDelete ($categoryId) {
+        $optionIds = $this->optionRepository->getIdsByCategory($categoryId);
+
+        if (!empty($optionIds)) {
+            $this->optionDelete($optionIds);
+        }
+        $this->optionCategoryRepository->delete($categoryId);
+        return sendResponse(compact('categoryId'), 'Thành công!');
+    }
+
+    public function optionDelete (array $optionIds) {
+        try {
+            foreach ($optionIds as $optionId) {
+                $this->productOptionRepository->deleteByOptionId($optionId);
+                $this->optionRepository->delete($optionId);
+            }
+            return sendResponse([], 'Thành công');
+        } catch (\Exception $e) {
+            return sendResponse([$e->getMessage()], 'Thất bại');
+        }
     }
 }

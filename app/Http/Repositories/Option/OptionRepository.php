@@ -27,4 +27,15 @@ class OptionRepository extends BaseRepository implements OptionRepositoryInterfa
                         ->get();
         return $options;
     }
+
+    public function getIdsByCategory ($categoryId) {
+        $optionIds = $this->model->whereOptionCategoryId($categoryId)->get(['id']);
+        $ids = [];
+        if (!empty($optionIds)) {
+            foreach ($optionIds as $item) {
+                $ids[] = $item->id;
+            }
+        }
+        return $ids;
+    }
 }

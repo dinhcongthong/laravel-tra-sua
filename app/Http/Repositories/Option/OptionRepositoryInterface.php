@@ -8,4 +8,6 @@ interface OptionRepositoryInterface extends RepositoryInterface
     public function getModel();
 
     public function getOptionContent ($optionCategoryId, $productId);
+
+    public function getIdsByCategory ($categoryId);
 }

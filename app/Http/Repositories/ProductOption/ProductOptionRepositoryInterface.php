@@ -11,4 +11,6 @@ interface ProductOptionRepositoryInterface extends RepositoryInterface
      * Set model
      */
     public function setModel();
+
+    public function deleteByOptionId($optionId);
 }

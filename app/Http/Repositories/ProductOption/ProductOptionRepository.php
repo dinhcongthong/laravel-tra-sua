@@ -18,4 +18,8 @@ class ProductOptionRepository extends BaseRepository implements ProductOptionRep
     {
         return ProductOption::class;
     }
+
+    public function deleteByOptionId($optionId) {
+        return $this->model->whereOptionId($optionId)->delete();
+    }
 }

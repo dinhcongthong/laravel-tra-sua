@@ -87,9 +87,46 @@ function postUpdate(url, name) {
     })
 }
 
-function saveNewOptionCategory () {
+async function saveNewOptionCategory () {
     let newOptionCategoryName = $('#create_option_category').val();
     let url = baseUrl + '/products/options/update-category/0';
-    postUpdate(url, newOptionCategoryName);
+    await postUpdate(url, newOptionCategoryName);
     location.reload();
+}
+
+async function saveNewOption (categoryName, categoryId, url) {
+    let newOptionName = $('#create_option').val();
+
+    let title = 'Thêm một ' + categoryName + ' mới'
+    $('#optionNewLabel').text(title);
+
+    $('#btn_save_new_option').on('click', function (e) {
+        // $.ajax({
+
+        // })
+    })
+}
+
+function deleteOptionCategory (url, e) {
+    e.preventDefault();
+    if (confirm('Bạn có chắc chắn muốn xóa hạng mục này không?')) {
+        $.ajax({
+            method: 'DELETE',
+            url,
+            beforeSend: function () {
+                rootLoader.show();
+            },
+            complete: function () {
+                rootLoader.hide();
+            }
+        })
+        .done(function (response) {
+            toastr.success('Thành Công!!!');
+            location.reload();
+        })
+        .fail(function (xhr, status, err) {
+            toastr.error('Thất bại cmnr~~~');
+        })
+    } else {
+    }
 }

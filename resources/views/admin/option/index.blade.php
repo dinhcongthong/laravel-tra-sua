@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-block">
-                        <a href="#" class="btn btn-success rounded-pill" data-bs-toggle="modal"
+                        <a href="#" class="btn btn-outline-success rounded-pill" data-bs-toggle="modal"
                             data-bs-target="#categoryNewModal">
                             <i data-feather="plus-square" title="Them moi"></i> Thêm mới
                         </a>
@@ -44,6 +44,14 @@
                                         data-name="{{ $optionCategory->name }}"
                                         data-url="{{ route('admin.products.options.post_option_category', $optionCategory->id) }}">
                                         <i data-feather="edit" title="Edit"></i>
+                                    </a>
+                                    <a href="#" class="text-danger"
+                                        onclick="deleteOptionCategory(`{{ route('admin.products.options.category_delete', $optionCategory->id) }}`, event)">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                    <a href="#" class="text-success" onclick="saveNewOption(`{{ $optionCategory->name }}`, `{{ $optionCategory->id }}`, `{{ route('admin.products.options.post_new_option') }}`)"
+                                        data-bs-target="#optionNewModal" data-bs-toggle="modal">
+                                        <i data-feather="plus-square"></i>
                                     </a>
                                 </div>
                             </div>
@@ -72,7 +80,7 @@
         </section>
     </div>
 
-    <!-- Modal -->
+    {{-- new Category modal --}}
     <div class="modal fade" id="categoryNewModal" tabindex="-1" aria-labelledby="categoryNewLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -85,6 +93,24 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="saveNewOptionCategory()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- new option modal --}}
+    <div class="modal fade" id="optionNewModal" tabindex="-1" aria-labelledby="optionNewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="optionNewLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="create_option">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn_save_new_option">Lưu</button>
                 </div>
             </div>
         </div>
