@@ -69,6 +69,10 @@
                                                         data-url="{{ route('admin.products.options.post_option', $item->id) }}">
                                                         <i data-feather="edit" title="Edit"></i>
                                                     </a>
+                                                    <a href="#" class="text-danger"
+                                                        onclick="deleteOption(`{{ route('admin.products.options.delete', $item->id) }}`, event)">
+                                                        <i data-feather="trash-2"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

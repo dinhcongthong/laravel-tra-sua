@@ -47,6 +47,7 @@ Route::prefix('products')->name('products.')->group(function () {
         Route::get('get-option-content/{optionCategoryId}/{productId}', [OptionController::class, 'getOptionContent']);
         Route::post('post-option-content/{productId}', [OptionController::class, 'postOptionContent']);
         Route::delete('category-delete/{categoryId}', [OptionController::class, 'categoryDelete'])->name('category_delete');
+        Route::delete('delete/{optionId}', [OptionController::class, 'optionDelete'])->name('delete');
     });
 });
 

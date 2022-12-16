@@ -96,7 +96,10 @@ class OptionController extends Controller
         return sendResponse(compact('categoryId'), 'Thành công!');
     }
 
-    public function optionDelete (array $optionIds) {
+    public function optionDelete ($optionIds) {
+        if (gettype($optionIds) != 'array') {
+            $optionIds = [$optionIds];
+        }
         try {
             foreach ($optionIds as $optionId) {
                 $this->productOptionRepository->deleteByOptionId($optionId);

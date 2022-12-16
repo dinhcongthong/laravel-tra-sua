@@ -123,8 +123,7 @@ async function saveNewOption () {
                 }
             })
             .done(function (response) {
-                toastr.success('Thành Công!!!');
-                console.log(response);
+                location.reload();
             })
             .fail(function (xhr, status, err) {
                 toastr.error('Thất bại cmnr~~~');
@@ -154,6 +153,27 @@ function deleteOptionCategory (url, e) {
         .fail(function (xhr, status, err) {
             toastr.error('Thất bại cmnr~~~');
         })
-    } else {
+    }
+}
+
+function deleteOption (url, e) {
+    e.preventDefault();
+    if (confirm('Bạn có chắc chắn muốn xóa hạng mục này không?')) {
+        $.ajax({
+            method: 'DELETE',
+            url,
+            beforeSend: function () {
+                rootLoader.show();
+            },
+            complete: function () {
+                rootLoader.hide();
+            }
+        })
+        .done(function (response) {
+            location.reload();
+        })
+        .fail(function (xhr, status, err) {
+            toastr.error('Thất bại cmnr~~~');
+        })
     }
 }
