@@ -59,6 +59,10 @@ class OrderController extends Controller
         return sendResponse($order, 'Thành công');
     }
 
+    public function updateDiscount (Request $request) {
+
+    }
+
     public function delete($id)
     {
         return $id;

@@ -1,6 +1,7 @@
 $(function() {
     changeOrderStatus();
     getOrderDetail();
+    checkAllOrders();
 });
 
 function changeOrderStatus() {
@@ -102,4 +103,22 @@ function getOrderDetail() {
             console.log(errors)
         })
     });
+}
+
+function checkAllOrders() {
+    $('#check_all_orders').change(function () {
+        if (this.checked) {
+            $('input[name="order_checked[]"]').prop('checked', true);
+        } else {
+            $('input[name="order_checked[]"]').prop('checked', false);
+        }
+    })
+    $('input[type="checkbox"]').change(function () {
+        if (this.checked) {
+            $('#btn_discount').show();
+        }
+        if ($('input[name="order_checked[]"]:checked').length < 1) {
+            $('#btn_discount').hide();
+        }
+    })
 }

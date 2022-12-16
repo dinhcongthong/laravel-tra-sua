@@ -32,49 +32,74 @@
                         </div>
                     </form>
                 </div>
-                <table class='table' id="order_table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Người mua</th>
-                            <th>Tổng tiền</th>
-                            <th>Phone</th>
-                            <th>Trạng thái</th>
-                            <th>Note</th>
-                            <th>Ngày đặt</th>
-                            <th>Đã cập nhật</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($orders as $order)
-                            <tr>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->customer_name }}</td>
-                                <td>{{ number_format($order->total_payment) . ' đ' }}</td>
-                                <td>{{ $order->customer_phone }}</td>
-                                <td>
-                                    <select name="order_status" class="form-control order-status"
-                                        data-id="{{ $order->id }}" data-url="{{ route('admin.orders.update_status') }}">
-                                        @foreach ($orderStatuses as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ $item->id == $order->order_status_id ? 'selected' : '' }}>
-                                                {{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>{{ $order->note }}</td>
-                                <td>{{ $order->order_date }}</td>
-                                <td>{{ $order->updated_at }}</td>
-                                <td class="order-detail p-0" data-id="{{ $order->id }}"
-                                    data-url="{{ route('admin.orders.get_detail') }}">
-                                    <i class="text-success" data-feather="eye" title="Detail"></i>
-                                </td>
-                            </tr>
+                <div class="d-flex mb-2">
+                    <button class="btn btn-info me-3" id="btn_discount" style="display: none;">Giảm giá</button>
+                    <select name="status_filter" id="status_filter" class="form-control w-25">
+                        <option value="">Lọc theo trạng thái</option>
+                        @foreach ($orderStatuses as $item)
+                            <option value="{{ $item->id }}"
+                                {{ $item->id == Request()->statusId ? 'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
                         @endforeach
-                    </tbody>
-                </table>
+                    </select>
+                    <button class="btn btn-warning ms-3"><i data-feather="filter"></i> Lọc</button>
+                </div>
+                <div style="overflow-y:hidden">
+                    <table class='table table-responsive' id="order_table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input form-check-secondary" name="check_all_orders" id="check_all_orders">
+                                    </div>
+                                </th>
+                                <th>ID</th>
+                                <th>Người mua</th>
+                                <th>Tổng tiền</th>
+                                <th>Phone</th>
+                                <th>Trạng thái</th>
+                                <th>Note</th>
+                                <th>Ngày đặt</th>
+                                <th>Đã cập nhật</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input form-check-secondary" name="order_checked[]" value="{{ $order->id }}">
+                                        </div>
+                                    </td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->customer_name }}</td>
+                                    <td>{{ number_format($order->total_payment) . ' đ' }}</td>
+                                    <td>{{ $order->customer_phone }}</td>
+                                    <td>
+                                        <select name="order_status" class="form-control order-status"
+                                            data-id="{{ $order->id }}" data-url="{{ route('admin.orders.update_status') }}">
+                                            @foreach ($orderStatuses as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == $order->order_status_id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>{{ $order->note }}</td>
+                                    <td>{{ $order->order_date }}</td>
+                                    <td>{{ $order->updated_at }}</td>
+                                    <td class="order-detail p-0" data-id="{{ $order->id }}"
+                                        data-url="{{ route('admin.orders.get_detail') }}">
+                                        <i class="text-success" data-feather="eye" title="Detail"></i>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 <div class="paginator">
                     @if ($orders->count() > 0)
                         {{ $orders->links('pagination::bootstrap-4') }}
