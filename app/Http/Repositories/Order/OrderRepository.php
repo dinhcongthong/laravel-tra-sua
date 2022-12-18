@@ -36,12 +36,22 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])->whereId($orderId)->firstOrFail();
     }
 
-    public function getAllBySearchData ($searchData) {
-        return $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus'])
-            ->where('total_payment', 'like', '%' . $searchData . '%')
-            ->orWhere('customer_name', 'like', '%' . $searchData . '%')
-            ->orWhere('customer_phone', 'like', '%' . $searchData . '%')
-            ->orWhere('order_date', 'like', '%' . $searchData . '%')
-            ->paginate(20);
+    public function getByConditions ($searchData, $statusId) {
+        $query = $this->model->with(['getOrderItems', 'getPaymentMethod', 'getStatus']);
+        if (!empty($statusId)) {
+            $query = $query->where('order_status_id', $statusId);
+        }
+        if (!empty($searchData)) {
+            $query = $query->whereId($searchData)
+                            ->orWhere('total_payment', 'like', '%' . $searchData . '%')
+                            ->orWhere('customer_name', 'like', '%' . $searchData . '%')
+                            ->orWhere('customer_phone', 'like', '%' . $searchData . '%')
+                            ->orWhere('order_date', 'like', '%' . $searchData . '%');
+        }
+        return $query->paginate(20);;
+    }
+
+    public function updateDiscount(array $orderIds, $totalDiscount) {
+        
     }
 }

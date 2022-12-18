@@ -29,7 +29,8 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $searchData = $request->search ?? '';
-        $orders = $this->orderRepository->getAllBySearchData($searchData);
+        $statusId = $request->status_filter ?? '';
+        $orders = $this->orderRepository->getByConditions($searchData, $statusId);
         $orderStatuses = $this->orderStatusRepository->getAll($searchData);
 
         return view('admin.order.index', [
@@ -60,7 +61,11 @@ class OrderController extends Controller
     }
 
     public function updateDiscount (Request $request) {
+        $orderIds = $request->orderIds;
+        $totalDiscount = $request->totalDiscount;
 
+        $result = $this->orderRepository->updateDiscount($orderIds, $totalDiscount);
+        return sendResponse([], 'Thành công');
     }
 
     public function delete($id)

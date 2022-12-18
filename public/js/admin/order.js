@@ -122,3 +122,10 @@ function checkAllOrders() {
         }
     })
 }
+
+function makeDiscount () {
+    let orderIds = $('input[name="order_checked[]"]:checked').map(function () {
+        return this.value;
+    }).get();
+
+}
