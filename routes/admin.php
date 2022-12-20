@@ -64,7 +64,7 @@ Route::prefix('orders')->name('orders.')->group(function () {
     Route::match(['get', 'post'], 'update/{id?}', [OrderController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [OrderController::class, 'delete'])->name('delete');
     Route::get('update-status', [OrderController::class, 'updateStatus'])->name('update_status');
-    Route::post('update-discount', [OrderController::class, 'updateDiscount']);
+    Route::post('update-discount', [OrderController::class, 'updateDiscount'])->name('update_discount');
 });
 
 Route::prefix('users')->name('users.')->group(function () {

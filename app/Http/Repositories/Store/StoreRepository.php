@@ -27,7 +27,8 @@ class StoreRepository extends BaseRepository implements StoreRepositoryInterface
     }
 
     public function getAllProductsBySearchData($searchData) {
-        return $this->model->with(['getImage', 'getStatus'])
+        return $this->model->whereStoreStatusId(ACTIVE_STATUS)
+            ->with(['getImage', 'getStatus'])
             ->with(['getProducts' => function ($q) {
                 return $q->with('getImage');
             }])

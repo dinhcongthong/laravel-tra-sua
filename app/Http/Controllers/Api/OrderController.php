@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    const ACTIVE_STATUS = 1;
-
     private $orderRepository;
 
     private $orderItemRepository;
@@ -63,7 +61,7 @@ class OrderController extends Controller
     {
         try {
             $orderData = [
-                'order_status_id' => self::ACTIVE_STATUS,
+                'order_status_id' => ACTIVE_STATUS,
                 'payment_method_id' => $request->payment_method_id,
                 'total_payment' => $request->total_payment,
                 'customer_name' => $request->customer_name,

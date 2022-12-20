@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Repositories\BaseRepository;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface {
+
     public function __construct () {
         parent::__construct();
     }
@@ -24,13 +25,19 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     public function getApiByStore ($storeId) {
-        return $this->model
+        $query = $this->model
+                    ->with('getStore')
+                    ->whereHas('getStore', function ($q) {
+                        return $q->where('store_status_id', ACTIVE_STATUS);
+                    })
                     ->whereStoreId($storeId)
                     ->with('getImage')
                     ->with(['getOptions' => function ($q) {
                         return $q->with('getOptionCategory');
                     }])
-                    ->get(['id', 'name', 'description', 'gallery_id', 'price']);
+                    ->get();
+
+        return $query;
     }
 
     public function getAllBySearchData($searchData) {

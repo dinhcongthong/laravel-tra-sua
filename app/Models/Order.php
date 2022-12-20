@@ -39,4 +39,9 @@ class Order extends Model
     public function getUpdatedAtAttribute ($value) {
         return date('Y-m-d H:i:s', strtotime($value));
     }
+
+    public function getFinalAmountAttribute () {
+        $discount = $this->discount ?? 0;
+        return $this->total_payment - $discount;
+    }
 }

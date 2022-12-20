@@ -12,7 +12,6 @@ use Weidner\Goutte\GoutteFacade;
 class CrawlerController extends Controller
 {
     use ImageUpload;
-    const ACTIVE_STATUS = 1;
     const INACTIVE_STATUS = 0;
 
     private $productRepository;
@@ -54,7 +53,7 @@ class CrawlerController extends Controller
                 'price' => $price,
                 'description' => $node->filter('div.item-desc')->text(),
                 'gallery_id' => $galleryId,
-                'product_status_id' => self::ACTIVE_STATUS
+                'product_status_id' => ACTIVE_STATUS
             ];
             $this->productRepository->create($data);
         });

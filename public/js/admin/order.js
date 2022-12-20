@@ -123,9 +123,27 @@ function checkAllOrders() {
     })
 }
 
-function makeDiscount () {
+function makeDiscount (url) {
     let orderIds = $('input[name="order_checked[]"]:checked').map(function () {
         return this.value;
     }).get();
+    let discount = $('#input_discount').val();
 
+    $.ajax({
+        url,
+        method: 'POST',
+        data: {
+            orderIds,
+            discount
+        },
+        beforeSend() {
+            rootLoader.show();
+        },
+        complete() {
+            location.reload();
+        },
+        error() {
+            toastr.error('Thất bại cmnr!');
+        }
+    })
 }

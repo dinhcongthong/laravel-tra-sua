@@ -25,15 +25,17 @@ class HomeController extends Controller
     {
         $storeId = $request->storeId;
         $searchData = $request->search;
-        $productFromStore = $this->productRepository->getApiByStore($storeId);
-        if ($productFromStore->count() == 0) {
+        $productFromStore = [];
+        if (is_null($storeId)) {
             $productFromStore = $this->storeRepository->getAllProductsBySearchData($searchData);
+        } else {
+            $productFromStore = $this->productRepository->getApiByStore($storeId);
         }
         return sendResponse(
             [
                 'products' => $productFromStore
             ],
-            'Thanh Cong'
+            'Thành công'
         );
     }
 }

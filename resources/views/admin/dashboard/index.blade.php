@@ -50,11 +50,11 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Đơn hàng đang chờ xác nhận</td>
+                                            <td>Đơn hàng hôm nay</td>
                                             <td>10</td>
                                         </tr>
                                         <tr>
-                                            <td>Đơn hàng đang chờ giao</td>
+                                            <td>Đơn hàng đang chờ xác nhận</td>
                                             <td>10</td>
                                         </tr>
                                         <tr>

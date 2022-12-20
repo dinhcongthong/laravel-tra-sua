@@ -62,10 +62,11 @@ class OrderController extends Controller
 
     public function updateDiscount (Request $request) {
         $orderIds = $request->orderIds;
-        $totalDiscount = $request->totalDiscount;
+        $orderIds = array_map('intval', $orderIds);
+        $totalDiscount = $request->discount;
 
         $result = $this->orderRepository->updateDiscount($orderIds, $totalDiscount);
-        return sendResponse([], 'Thành công');
+        return sendResponse($result, 'Thành công');
     }
 
     public function delete($id)

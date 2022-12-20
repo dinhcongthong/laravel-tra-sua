@@ -5,7 +5,7 @@
             cursor: pointer;
         }
 
-        .modal-dialog {
+        #order_detail_modal .modal-dialog {
             max-width: 1000px !important;
         }
 
@@ -32,9 +32,9 @@
                         </div>
                     </div>
                     <div class="d-flex mb-2">
-                        <button class="btn btn-info me-3" type="button" id="btn_discount"
-                            style="display: none;" onclick="makeDiscount()">
-                            Giảm giá
+                        <button class="btn btn-info me-3" type="button" id="btn_discount" data-bs-toggle="modal"
+                            data-bs-target="#order_discount_modal" style="display: none;">
+                            Cập nhật giảm giá
                         </button>
                         <select name="status_filter" id="status_filter" class="form-control w-25">
                             <option value="">Lọc theo trạng thái</option>
@@ -60,6 +60,8 @@
                                 </th>
                                 <th>ID</th>
                                 <th>Người mua</th>
+                                <th>Số tiền</th>
+                                <th>Giảm giá</th>
                                 <th>Tổng tiền</th>
                                 <th>Phone</th>
                                 <th>Trạng thái</th>
@@ -81,6 +83,8 @@
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $order->customer_name }}</td>
                                     <td>{{ number_format($order->total_payment) . ' đ' }}</td>
+                                    <td>{{ number_format($order->discount) . ' đ' }}</td>
+                                    <td>{{ number_format($order->final_amount) . ' đ' }}</td>
                                     <td>{{ $order->customer_phone }}</td>
                                     <td>
                                         <select name="order_status" class="form-control order-status"
@@ -113,7 +117,7 @@
                 </div>
             </div>
         </div>
-        {{-- Modal --}}
+        {{-- Modals --}}
         <div class="modal fade text-left" id="order_detail_modal" tabindex="-1" role="dialog"
             aria-labelledby="order_detail" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -178,6 +182,29 @@
                         <button type="button" class="btn btn-default" data-bs-dismiss="modal">
                             <i class="bx bx-x d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-left" id="order_discount_modal" tabindex="-1" role="dialog"
+            aria-labelledby="order_discount" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content text-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="order_discount">Nhập số tiền được giảm giá</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="number" class="form-control" id="input_discount">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="makeDiscount(`{{ route('admin.orders.update_discount') }}`)">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Xác nhận</span>
                         </button>
                     </div>
                 </div>

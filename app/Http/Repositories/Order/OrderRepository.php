@@ -52,6 +52,11 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     }
 
     public function updateDiscount(array $orderIds, $totalDiscount) {
-        
+        try {
+            $result = $this->model->whereIn('id', $orderIds)->update(['discount' => $totalDiscount]);
+            return true;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

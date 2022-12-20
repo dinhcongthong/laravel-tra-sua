@@ -63,7 +63,7 @@ class StoreController extends Controller
         } else {
             $this->storeRepository->create($data);
         }
-        return redirect()->route('admin.stores.index')->with('message', 'Ban vua moi cap nhat cua hang thanh cong!');
+        return redirect()->route('admin.stores.index')->with('message', 'Bạn vừa mới cập nhật cửa hàng thành công!');
     }
 
     public function delete ($id) {
