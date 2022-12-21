@@ -59,7 +59,6 @@ class ProductController extends Controller
 
     public function postUpdate(ProductRequest $request)
     {
-        return $request->all();
         $id = $request->product_id ?? 0;
         $product = $this->productRepository->find($id);
         $data = [
@@ -85,7 +84,7 @@ class ProductController extends Controller
         } else {
             $this->productRepository->create($data);
         }
-        return redirect()->back()->with('message', 'San pham cua ban da duoc cap nhat thanh cong!');
+        return redirect()->back()->with('message', 'Sản phẩm của bạn đã được cập nhật thành công!');
     }
 
     public function delete ($productId) {

@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Product\ProductRepositoryInterface;
 use App\Http\Repositories\Store\StoreRepositoryInterface;
+use App\Http\Resources\StoreResource;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    private $productRepository;
-
     private $storeRepository;
 
     public function __construct(
@@ -25,17 +24,9 @@ class HomeController extends Controller
     {
         $storeId = $request->storeId;
         $searchData = $request->search;
-        $productFromStore = [];
-        if (is_null($storeId)) {
-            $productFromStore = $this->storeRepository->getAllProductsBySearchData($searchData);
-        } else {
-            $productFromStore = $this->productRepository->getApiByStore($storeId);
-        }
-        return sendResponse(
-            [
-                'products' => $productFromStore
-            ],
-            'Thành công'
-        );
+
+        $data = $this->storeRepository->getApiProducts($storeId, $searchData);
+        $data = $storeId ? new StoreResource($data) : StoreResource::collection($data);
+        return sendResponse($data, 'Thành công');
     }
 }

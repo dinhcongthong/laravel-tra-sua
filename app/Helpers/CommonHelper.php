@@ -1,5 +1,7 @@
 <?php
 
+define('ACTIVE_STATUS', 1);
+
 if (!function_exists('sendResponse')) {
     function sendResponse($result, $message)
     {

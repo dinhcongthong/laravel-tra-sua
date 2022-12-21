@@ -13,7 +13,7 @@ interface StoreRepositoryInterface extends RepositoryInterface
 
     public function getAllBySearchData($searchData);
 
-    public function getAllProductsBySearchData($searchData);
-
     public function getProducts($storeId);
+
+    public function getApiProducts($storeId, $searchData);
 }

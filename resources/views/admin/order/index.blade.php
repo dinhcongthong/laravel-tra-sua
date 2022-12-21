@@ -60,13 +60,11 @@
                                 </th>
                                 <th>ID</th>
                                 <th>Người mua</th>
-                                <th>Số tiền</th>
                                 <th>Giảm giá</th>
                                 <th>Tổng tiền</th>
                                 <th>Phone</th>
                                 <th>Trạng thái</th>
                                 <th>Note</th>
-                                <th>Ngày đặt</th>
                                 <th>Đã cập nhật</th>
                                 <th></th>
                             </tr>
@@ -82,7 +80,6 @@
                                     </td>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $order->customer_name }}</td>
-                                    <td>{{ number_format($order->total_payment) . ' đ' }}</td>
                                     <td>{{ number_format($order->discount) . ' đ' }}</td>
                                     <td>{{ number_format($order->final_amount) . ' đ' }}</td>
                                     <td>{{ $order->customer_phone }}</td>
@@ -99,7 +96,6 @@
                                         </select>
                                     </td>
                                     <td>{{ $order->note }}</td>
-                                    <td>{{ $order->order_date }}</td>
                                     <td>{{ $order->updated_at }}</td>
                                     <td class="order-detail p-0" data-id="{{ $order->id }}"
                                         data-url="{{ route('admin.orders.get_detail') }}">

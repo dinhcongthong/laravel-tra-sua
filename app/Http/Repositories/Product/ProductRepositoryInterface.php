@@ -12,14 +12,11 @@ interface ProductRepositoryInterface extends RepositoryInterface
      */
     public function setModel();
 
-    /**
-     * @param $store_id
-     */
-    public function getApiByStore($storeId);
-
     public function crawlerGetByStoreIndex($storeId);
 
     public function getAllBySearchData ($searchData);
 
     public function findDetail($id);
+
+    public function getDetail ($id);
 }

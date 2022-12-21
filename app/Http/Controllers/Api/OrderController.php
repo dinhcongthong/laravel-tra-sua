@@ -30,33 +30,6 @@ class OrderController extends Controller
         return response()->json(['orders' => $orders]);
     }
 
-    /**
-     * api example
-     * {
-     *       "total_payment": 100000,
-     *       "customer_name": "Thomas",
-     *       "customer_phone": "0923492349",
-     *       "client_ip": "192.168.1.1",
-     *       "order_note": "ko co gi",
-     *       "payment_method_id": 1,
-     *       "order_items" : [
-     *           {
-     *               "qty": 1,
-     *               "price": 50000,
-     *               "product_name": "Tra sua chan trau",
-     *               "product_img_url": "https://abc.xyz",
-     *               "order_item_note": "size S nha"
-     *           },
-     *           {
-     *               "qty": 1,
-     *               "price": 50000,
-     *               "product_name": "Sua chua",
-     *               "product_img_url": "https://abc.xyz",
-     *               "order_item_note": "size M"
-     *           }
-     *       ]
-     *   }
-     */
     public function create(OrderRequest $request)
     {
         try {

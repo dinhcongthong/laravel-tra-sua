@@ -36,8 +36,12 @@ class Order extends Model
         return $this->belongsTo('App\Models\OrderStatus', 'order_status_id', 'id');
     }
 
+    public function getOrderDateAttribute($value) {
+        return date('d-m-Y', strtotime($value));
+    }
+
     public function getUpdatedAtAttribute ($value) {
-        return date('Y-m-d H:i:s', strtotime($value));
+        return date('d-m-Y H:i:s', strtotime($value));
     }
 
     public function getFinalAmountAttribute () {
