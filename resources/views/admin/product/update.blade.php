@@ -90,37 +90,39 @@
         </div>
     </section>
 
-    {{-- modal --}}
-    <div class="modal fade" id="optionModal" tabindex="-1" aria-labelledby="optionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="optionModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" id="option_form">
-                        <table class="table table-bordered" id="option_table">
-                            <thead>
-                                <tr>
-                                    <th>NO</th>
-                                    <th>Loại</th>
-                                    <th>Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn_save_option"
-                        onclick="saveOption({{ $product->id }})" data-bs-dismiss="modal">
-                        Lưu thay đổi
-                    </button>
+    @if (!empty($product->id))
+        {{-- modal --}}
+        <div class="modal fade" id="optionModal" tabindex="-1" aria-labelledby="optionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="optionModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="option_form">
+                            <table class="table table-bordered" id="option_table">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>Loại</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn_save_option"
+                            onclick="saveOption({{ $product->id }})" data-bs-dismiss="modal">
+                            Lưu thay đổi
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
 @section('scripts')
     <script src="{{ asset('js/admin/product.js') }}"></script>
