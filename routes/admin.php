@@ -56,6 +56,7 @@ Route::prefix('stores')->name('stores.')->group(function () {
     Route::get('/update/{id?}', [StoreController::class, 'getUpdate'])->name('get_update');
     Route::post('update', [StoreController::class, 'postUpdate'])->name('post_update');
     Route::delete('delete/{id}', [StoreController::class, 'delete'])->name('delete');
+    Route::post('change-status', [StoreController::class, 'changeStatus'])->name('change_status');
 });
 
 Route::prefix('orders')->name('orders.')->group(function () {

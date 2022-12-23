@@ -28,15 +28,16 @@ class StoreController extends Controller
     public function index(Request $request)
     {
         $searchData = $request->search;
-        $data = $this->storeRepository->getAllBySearchData($searchData);
-        return view('admin.store.index', ['stores' => $data]);
+        $stores = $this->storeRepository->getAllBySearchData($searchData);
+        $statuses = $this->storeStatusRepository->getAll();
+        return view('admin.store.index', compact('stores', 'statuses'));
     }
 
     public function getUpdate($id = 0)
     {
-        $storeStatus = $this->storeStatusRepository->getAll();
+        $statuses = $this->storeStatusRepository->getAll();
         $store = $this->storeRepository->find($id);
-        return view('admin.store.update', ['store' => $store, 'storeStatus' => $storeStatus]);
+        return view('admin.store.update', compact('store', 'statuses'));
     }
     public function postUpdate(StoreRequest $request)
     {
@@ -69,5 +70,12 @@ class StoreController extends Controller
     public function delete ($id) {
         $this->storeRepository->delete($id);
         return redirect()->route('admin.stores.index')->with(['status' => 'Ban vua moi xoa thanh cong 1 cua hang!']);
+    }
+
+    public function changeStatus (Request $request) {
+        $storeId = $request->storeId;
+        $statusId = $request->statusId;
+        $store = $this->storeRepository->update($storeId, ['store_status_id' => $statusId]);
+        return sendResponse(['color_class' => $store->getStatus->color_class], 'thanhcong');
     }
 }

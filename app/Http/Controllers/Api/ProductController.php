@@ -31,13 +31,15 @@ class ProductController extends Controller
         $product = $this->productRepository->getDetail($productId);
 
         $data = [];
-        foreach ($category as $category) {
-            $i = 0;
-            foreach ($product->getOptions as $option) {
-                if ($category->id == $option->getOptionCategory->id) {
-                    $data[$category->name][$i]['name'] = $option->name;
-                    $data[$category->name][$i]['price'] = $option->pivot->price;
-                    $i++;
+        if (!empty($product->getOptions)) {
+            foreach ($category as $category) {
+                $i = 0;
+                foreach ($product->getOptions as $option) {
+                    if ($category->id == $option->getOptionCategory->id) {
+                        $data[$category->name][$i]['name'] = $option->name;
+                        $data[$category->name][$i]['price'] = $option->pivot->price;
+                        $i++;
+                    }
                 }
             }
         }
