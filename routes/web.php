@@ -19,10 +19,6 @@ Route::get('/', function () {
     return view('maintance');
 });
 
-// Route::prefix('admin')->group(function () {
-
-// });
-
 Auth::routes();
 
 Route::get('logout', function (){

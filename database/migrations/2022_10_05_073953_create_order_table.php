@@ -17,6 +17,7 @@ class CreateOrderTable extends Migration
             $table->id();
             $table->foreignId('order_status_id')->constrained('order_status');
             $table->foreignId('payment_method_id')->constrained('payment_methods');
+            $table->foreignId('store_id')->constrained('store');
             $table->string('total_payment');
             $table->string('customer_name');
             $table->string('customer_phone');

@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\Product\CrawlerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Member\MemberController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Product\OptionController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Setting\PaymentMethodController;
 use App\Http\Controllers\Admin\Setting\SystemController;
 use App\Http\Controllers\Admin\Store\StoreController;
-use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// Home admin dashboard.
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
 });
-
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::prefix('products')->name('products.')->group(function () {
@@ -68,9 +68,9 @@ Route::prefix('orders')->name('orders.')->group(function () {
     Route::post('update-discount', [OrderController::class, 'updateDiscount'])->name('update_discount');
 });
 
-Route::prefix('users')->name('users.')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
-    Route::get('update/{id?}', [UserController::class, 'update'])->name('update');
+Route::prefix('members')->name('members.')->group(function () {
+    Route::get('/', [MemberController::class, 'index'])->name('index');
+    Route::get('update/{id?}', [MemberController::class, 'update'])->name('update');
 });
 
 Route::prefix('settings')->name('settings.')->group(function () {

@@ -3,8 +3,8 @@ POST http://localhost/laravel-tra-sua/public/api/order/create
 Content-Type: application/json
 
 {
-    "total_payment": 40000,
-    "customer_name": "Thoma",
+    "total_payment": 60000,
+    "customer_name": "Thomus",
     "customer_phone": "0923492349",
     "client_ip": "192.168.1.1",
     "order_note": "ko co gi",
@@ -12,17 +12,19 @@ Content-Type: application/json
     "order_items": [
         {
             "qty": 1,
-            "price": 20000,
+            "price": 40000,
             "product_name": "Tra sua chan trau",
             "product_img_url": "https://phuclong.com.vn/uploads/dish/4bab552f7ed0a6-trasuaberryberry60000839.png",
-            "order_item_note": "size S nha"
+            "order_item_note": "size S nha",
+            "store_id": 1
         },
         {
             "qty": 1,
             "price": 20000,
             "product_name": "Sua chua",
             "product_img_url": "https://phuclong.com.vn/uploads/dish/4bab552f7ed0a6-trasuaberryberry60000839.png",
-            "order_item_note": "size M"
+            "order_item_note": "size M",
+            "store_id": 1
         }
     ]
 }

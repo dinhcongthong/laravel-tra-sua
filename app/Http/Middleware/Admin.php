@@ -18,10 +18,9 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            dd(234);
+            return $next($request);
+        } else {
+            return redirect()->route('admin.login');
         }
-        return $next($request);
-        // dd(session()->all());
-        // dd('chua dang nhap');
     }
 }

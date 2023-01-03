@@ -48,7 +48,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
                             ->orWhere('customer_phone', 'like', '%' . $searchData . '%')
                             ->orWhere('order_date', 'like', '%' . $searchData . '%');
         }
-        return $query->paginate(20);;
+        return $query->paginate(20);
     }
 
     public function updateDiscount(array $orderIds, $totalDiscount) {

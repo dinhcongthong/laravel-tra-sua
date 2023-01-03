@@ -66,6 +66,12 @@
                                 <span>Cửa hàng</span>
                             </a>
                         </li>
+                        <li class="sidebar-item {{ Request()->segment(2) == 'members' ? 'active' : '' }}">
+                            <a href="{{ route('admin.members.index') }}" class='sidebar-link'>
+                                <i data-feather="users" width="20"></i>
+                                <span>Members</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item {{ Request()->segment(2) == 'orders' ? 'active' : '' }}">
                             <a href="{{ route('admin.orders.index') }}" class='sidebar-link'>
                                 <i data-feather="shopping-cart" width="20"></i>
