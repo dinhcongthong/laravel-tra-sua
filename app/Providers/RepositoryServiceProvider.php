@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Providers;
+
+use App\Http\Repositories\Member\MemberRepository;
+use App\Http\Repositories\Member\MemberRepositoryInterface;
 use App\Http\Repositories\Option\OptionRepository;
 use App\Http\Repositories\Option\OptionRepositoryInterface;
 use App\Http\Repositories\Option\OptionCategoryRepository;
@@ -87,6 +90,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(
             ProductOptionRepositoryInterface::class,
             ProductOptionRepository::class
+        );
+
+        $this->app->singleton(
+            MemberRepositoryInterface::class,
+            MemberRepository::class
         );
     }
 

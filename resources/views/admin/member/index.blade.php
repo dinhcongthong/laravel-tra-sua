@@ -20,26 +20,35 @@
                 <form action="" method="get">
                     <div class="py-3 d-flex justify-content-end">
                         <input type="text" name="search" value="{{ Request()->search }}"
-                            class="form-control w-25" placeholder="Tìm kiếm tên sản phẩm">
+                            class="form-control w-25" placeholder="Tìm kiếm tên">
                     </div>
                 </form>
                 <table class='table' id="crawler_table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                        </tr>
+                        @foreach ($members as $member)
+                            <tr>
+                                <td>{{ $member->id }}</td>
+                                <td>{{ $member->name }}</td>
+                                <td>{{ $member->email }}</td>
+                                <td>{{ $member->phone }}</td>
+                                <td>{{ $member->getRole->name }}</td>
+                                <td>{{ $member->created_at }}</td>
+                                <td>{{ $member->updated_at }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                <div class="paginator">
-                    @if ($products->count() > 0)
-                        {{ $products->links('pagination::bootstrap-4') }}
-                    @endif
-                </div>
             </div>
         </div>
     </section>

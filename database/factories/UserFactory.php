@@ -21,6 +21,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'email_verified_at' => now(),
             'password' => Hash::make('thong9999'), // password
+            'role_id' => 1,
             'remember_token' => Str::random(10),
         ];
     }

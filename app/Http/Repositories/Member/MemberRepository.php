@@ -18,4 +18,13 @@ class MemberRepository extends BaseRepository implements MemberRepositoryInterfa
     {
         return User::class;
     }
+
+    public function getByKeyword ($keyword) {
+        $members = $this->model;
+        if (!empty ($keyword)) {
+            $members = $members->where('name', 'like', '%' . $keyword . '%')
+                                ->orWhere('email', 'like', '%' . $keyword . '%');
+        }
+        return $members->paginate(20);
+    }
 }

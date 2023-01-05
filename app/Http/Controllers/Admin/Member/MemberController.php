@@ -15,8 +15,10 @@ class MemberController extends Controller
         $this->memberRepository = $memberRepository;
     }
 
-    public function index () {
-
+    public function index (Request $request) {
+        $keyword = $request->search;
+        $members = $this->memberRepository->getByKeyword($keyword);
+        return view('admin.member.index', compact('members'));
     }
 
     public function update (Request $request) {
